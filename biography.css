@@ -78,3 +78,32 @@ nav.navbar {
     border-color: #181818;
     color: #ffd700;
 }
+
+.site-footer {
+    background-color: #1a1a1a; /* A dark color to contrast your main sections */
+    color: #ffffff;
+    padding: 30px 0;
+    text-align: center;
+    margin-top: 50px; /* Gives it space from the 'About Us' section */
+    font-family: Arial, sans-serif;
+}
+
+.footer-content p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    opacity: 0.8; /* Makes the copyright slightly more subtle */
+}
+
+.footer-links a {
+    color: #ffffff;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 0 10px;
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
