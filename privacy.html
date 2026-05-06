@@ -42,7 +42,11 @@
                         </div>
 
                     </div>
-                </div> <p class="text-center mt-4 small text-muted">&copy; 2026 6D's Biographies</p>
+                </div> <p class="text-center mt-4 small text-muted">&copy;<span id="year"></span> 6D's Biographies</p>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script></p>
 
             </div>
         </div>
