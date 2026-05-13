@@ -1,10 +1,27 @@
 body {
     background-color: #121212;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 h1, h2, h3, h4, h5, h6, p {
     color: #E8EAED;
 }
 .jumbotron {
     background-color: #121212;
+}
+
+/* This centers all text and gives the site a modern font */
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    text-align: center;
+}
+
+/* This ensures your containers don't lean to the left on big screens */
+.container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* This makes your buttons look consistent */
+.btn {
+    min-width: 200px;
+    margin-top: 10px;
 }
