@@ -116,3 +116,7 @@ nav.navbar {
   margin-right: 8px;
   color: #3498db; /* Matches your blue theme! */
 }
+
+.offcanvas-header img {
+    margin-right: 8px !important; /* Adjust this number until it looks right */
+}
