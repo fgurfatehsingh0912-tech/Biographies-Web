@@ -108,3 +108,11 @@ nav.navbar {
     opacity: 1;
     text-decoration: underline;
 }
+
+.bio-text::first-letter {
+  font-size: 300%;
+  font-weight: bold;
+  float: left;
+  margin-right: 8px;
+  color: #3498db; /* Matches your blue theme! */
+}
