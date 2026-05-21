@@ -8,7 +8,6 @@ const biographies = [
 ];
 
 function displayBios() {
-    // We select these INSIDE the function so they are never null
     const bioContent = document.getElementById('bioContent');
     const searchInput = document.getElementById('searchInput');
     const activeFilter = document.querySelector('.filter-opt:checked');
