@@ -27,7 +27,7 @@ function displayBios() {
     });
 
     if (filtered.length === 0) {
-        bioContent.innerHTML = `<div class="col-12"><p class="text-muted text-center mt-5">No biographies found matching "${searchText}".</p></div>`;
+        bioContent.innerHTML = `<div class="col-12"><p class="text-center mt-5">No biographies found matching "${searchText}".</p></div>`;
         return;
     }
 
