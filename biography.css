@@ -81,18 +81,18 @@ nav.navbar {
 }
 
 .site-footer {
-    background-color: #1a1a1a; /* A dark color to contrast your main sections */
+    background-color: #1a1a1a;
     color: #ffffff;
     padding: 30px 0;
     text-align: center;
-    margin-top: 50px; /* Gives it space from the 'About Us' section */
+    margin-top: 50px;
     font-family: Arial, sans-serif;
 }
 
 .footer-content p {
     font-size: 14px;
     margin-bottom: 10px;
-    opacity: 0.8; /* Makes the copyright slightly more subtle */
+    opacity: 0.8;
 }
 
 .footer-links a {
@@ -114,5 +114,23 @@ nav.navbar {
   font-weight: bold;
   float: left;
   margin-right: 8px;
-  color: #3498db; /* Matches your blue theme! */
+  color: #3498db;
+}
+
+.navbar-nav .nav-item .nav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+.navbar-nav .nav-item .material-symbols-outlined {
+    display: block !important;
+    margin: 0 auto 4px auto !important; /* Centers it and adds 4px space below */
+}
+
+.navbar-nav .nav-item span:not(.material-symbols-outlined) {
+    display: block !important;
+    margin: 0 auto !important;
 }
