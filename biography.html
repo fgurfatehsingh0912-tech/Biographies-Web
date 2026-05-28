@@ -20,47 +20,49 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     
-    <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title">Menu</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-      </div>
-      
-      <div class="offcanvas-body">
-        <form class="d-flex mb-3" id="searchForm">
-          <input id="searchInput" class="form-control" type="search" placeholder="Search names..." aria-label="Search"/>
-        </form>
-        <hr>
-
-        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-          <li class="nav-item">
-            <div>
-              <a class="nav-link active" href="index.html">
-                <span class="material-symbols-outlined">home</span> 
-                <span>Home</span>
-              </a>
-            </div>
-            <hr>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Filters</a>
-            <ul class="dropdown-menu dropdown-menu-dark">
-                <div class="d-grid gap-2">
-                    <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
-                    <label class="btn btn-outline-primary" for="all">Show All</label>
-
-                    <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
-                    <label class="btn btn-outline-primary" for="male">(Student) Male</label>
-
-                    <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
-                    <label class="btn btn-outline-primary" for="female">(Student) Female</label>
-                </div>
-            </ul>
-          </li>
-        </ul>
-      </div>
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+  
+  <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="offcanvas-title">Menu</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
     </div>
+    
+    <form class="d-flex mb-3" id="searchForm">
+      <input id="searchInput" class="form-control" type="search" placeholder="Search names..." aria-label="Search"/>
+    </form>
+    <hr class="mt-0 mb-2">
   </div>
+  
+  <div class="offcanvas-body pt-1">
+    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+      <li class="nav-item">
+        <div>
+          <a class="nav-link active" href="index.html">
+            <span class="material-symbols-outlined">home</span> 
+            <span>Home</span>
+          </a>
+        </div>
+        <hr>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Filters</a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <div class="d-grid gap-2">
+                <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
+                <label class="btn btn-outline-primary" for="all">Show All</label>
+
+                <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
+                <label class="btn btn-outline-primary" for="male">(Student) Male</label>
+
+                <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
+                <label class="btn btn-outline-primary" for="female">(Student) Female</label>
+            </div>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
 </nav>
 
 <main class="container">
