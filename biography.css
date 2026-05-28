@@ -135,11 +135,12 @@ nav.navbar {
     margin: 0 auto !important;
 }
 
-/* Smooth slide down animation for the dropdown menu */
 .dropdown-menu {
     display: block !important;
     visibility: hidden;
     opacity: 0;
+    max-height: 0;
+    overflow: hidden;
     transform: translateY(-10px);
     transition: all 0.3s ease-in-out;
 }
@@ -147,5 +148,6 @@ nav.navbar {
 .dropdown-menu.show {
     visibility: visible;
     opacity: 1;
+    max-height: 200px;
     transform: translateY(0);
 }
