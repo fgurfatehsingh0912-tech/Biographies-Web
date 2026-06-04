@@ -67,3 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayBios();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const filterBtn = document.getElementById("filter-btn");
+  const filterMenu = document.getElementById("filter-menu");
+
+  filterBtn.addEventListener("click", () => {
+    // Toggles the .open class on and off
+    filterMenu.classList.toggle("open");
+  });
+});
