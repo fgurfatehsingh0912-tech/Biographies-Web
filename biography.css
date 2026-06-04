@@ -143,20 +143,51 @@ nav.navbar {
         width: 100%;
     }
 
-.dropdown-menu {
-    display: block !important;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px) scaleY(0.95);
-    transform-origin: top center;
-    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s;
-    
-    min-width: 200px;
-    padding: 10px !important;
+/* --- OFFCANVAS DROPDOWN OVERFLOW FIX --- */
+
+/* Force the offcanvas container to show content that spills out */
+.offcanvas, .offcanvas-body {
+    overflow: visible !important;
 }
 
-.dropdown-menu.show {
+/* Turn the dropdown into a natural accordion block so it pushes content down smoothly */
+.nav-item.dropdown .dropdown-menu {
+    position: static !important;
+    float: none !important;
+    transform: none !important;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.05); /* Soft dark background tint */
+    border: none;
+    min-width: 100%;
+    
+    /* Animation foundations */
+    display: block !important;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    transition: max-height 0.35s ease-in-out, opacity 0.25s ease-in-out;
+}
+
+/* Slide open cleanly when Bootstrap applies the .show class */
+.nav-item.dropdown .dropdown-menu.show {
+    max-height: 300px; /* Safe upper boundary for your filter buttons */
     opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scaleY(1);
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+/* Fix the alignment row layouts for menu anchors */
+.nav-link {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Ensure the arrow icon floats cleanly to the right edge */
+.dropdown-toggle::after {
+    margin-left: auto !important;
+    align-self: center;
 }
