@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- CSS Frameworks -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="biography.css">
-<link rel="stylesheet" href="https://googleapis.com" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Material Icons Font & Material Web Components Library -->
+    <link rel="stylesheet" href="https://googleapis.com" />
+    <script type="module" src="https://jsdelivr.net"></script>
     
     <style>
         body { padding-top: 70px; }
@@ -16,6 +22,17 @@
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        /* Material Dark Theme styling tweaks */
+        md-outlined-text-field {
+            --md-outlined-text-field-container-shape: 4px;
+            --md-outlined-text-field-outline-color: #666;
+            --md-outlined-text-field-focus-outline-color: #0d6efd;
+            --md-outlined-text-field-input-text-color: #fff;
+            --md-outlined-text-field-placeholder-text-color: #aaa;
+            --md-outlined-text-field-leading-icon-color: #aaa;
+            --md-outlined-text-field-focus-leading-icon-color: #0d6efd;
         }
     </style>
 </head>
@@ -36,15 +53,15 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         
-        <form class="d-flex mb-3" id="searchForm">
-<md-outlined-text-field 
-  id="searchInput"
-  class="w-100" 
-  type="search"
-  placeholder="Search names..." 
-  aria-label="Search">
-  <md-icon slot="leading-icon">search</md-icon>
-</md-outlined-text-field>
+        <form class="d-flex mb-3" id="searchForm" onsubmit="event.preventDefault();">
+          <md-outlined-text-field 
+            id="searchInput"
+            class="w-100" 
+            type="search"
+            placeholder="Search names..." 
+            aria-label="Search">
+            <md-icon slot="leading-icon">search</md-icon>
+          </md-outlined-text-field>
         </form>
         <hr class="mt-0 mb-2">
       </div>
@@ -54,7 +71,7 @@
           
           <li class="nav-item mb-2">
             <a class="nav-link active d-flex align-items-center gap-2" href="index.html">
-              <span class="material-symbols-outlined" style="font-size: 24px; font-family: 'Material Symbols Outlined' !important;">home</span> 
+              <span class="material-symbols-outlined" style="font-size: 24px;">home</span> 
               <span>Home</span>
             </a>
             <hr class="my-2">
@@ -62,7 +79,7 @@
           
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
-              <span class="material-symbols-outlined" style="font-size: 24px; font-family: 'Material Symbols Outlined' !important;">filter_list</span> 
+              <span class="material-symbols-outlined" style="font-size: 24px;">filter_list</span> 
               <span>Filters</span>
             </a>
             
@@ -85,25 +102,27 @@
     </div>
   </div>
 </nav>
+
 <main class="container">
-    <div id="bioContent" class="row">
-        </div>
+    <!-- biography.js hooks onto this to inject your cards -->
+    <div id="bioContent" class="row"></div>
 </main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="biography.js"></script>
-<script type="module" src="https://jsdelivr.net"></script>
 <footer class="site-footer mt-5">
-    <div class="footer-content">
+    <div class="footer-content text-center">
         <p>&copy; <span id="year"></span> 6D's Biographies. All Rights Reserved.</p>
-
-        <script>
-          document.getElementById("year").textContent = new Date().getFullYear();
-        </script>
         <div class="footer-links">
             <a href="privacy.html">Privacy Policy</a>
         </div>
     </div>
 </footer>
+
+<!-- Scripts Frameworks & Logic -->
+<script src="https://jsdelivr.net"></script>
+<script src="biography.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
 </body>
 </html>
