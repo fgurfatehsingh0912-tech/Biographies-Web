@@ -37,13 +37,14 @@
         </div>
         
         <form class="d-flex mb-3" id="searchForm">
-<div class="input-group">
-  <span class="input-group-text" id="basic-addon1" style="display: flex; align-items: center;">
-    <span class="material-symbols-outlined text-light" style="font-size: 24px; line-height: 1;">search</span>
-  </span>
-  <input id="searchInput" class="form-control" type="search" placeholder="Search names..." aria-label="Search" aria-describedby="basic-addon1"/>
-</div>
-
+<md-outlined-text-field 
+  id="searchInput"
+  class="w-100" 
+  type="search"
+  placeholder="Search names..." 
+  aria-label="Search">
+  <md-icon slot="leading-icon">search</md-icon>
+</md-outlined-text-field>
         </form>
         <hr class="mt-0 mb-2">
       </div>
