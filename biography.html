@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    
-    <!-- CSS Frameworks -->
+    <!-- Bootstrap CSS Framework -->
     <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="biography.css">
     
-    <!-- Material Icons Font & Material Web Components Library -->
+    <!-- Material Symbols Font & Material Components Library -->
     <link rel="stylesheet" href="https://googleapis.com" />
     <script type="module" src="https://jsdelivr.net"></script>
     
@@ -24,7 +21,7 @@
             gap: 8px;
         }
 
-        /* Material Dark Theme styling tweaks */
+        /* Styles the Material field text to match your dark menu */
         md-outlined-text-field {
             --md-outlined-text-field-container-shape: 4px;
             --md-outlined-text-field-outline-color: #666;
@@ -104,12 +101,11 @@
 </nav>
 
 <main class="container">
-    <!-- biography.js hooks onto this to inject your cards -->
     <div id="bioContent" class="row"></div>
 </main>
 
 <footer class="site-footer mt-5">
-    <div class="footer-content text-center">
+    <div class="footer-content">
         <p>&copy; <span id="year"></span> 6D's Biographies. All Rights Reserved.</p>
         <div class="footer-links">
             <a href="privacy.html">Privacy Policy</a>
@@ -117,7 +113,7 @@
     </div>
 </footer>
 
-<!-- Scripts Frameworks & Logic -->
+<!-- JavaScript Libraries (DO NOT DELETE) -->
 <script src="https://jsdelivr.net"></script>
 <script src="biography.js"></script>
 <script>
