@@ -14,7 +14,8 @@ function displayBios() {
 
     if (!bioContent) return;
 
-    const searchText = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    // Fixed: Standardized to safely read value strings from Material Web Components
+    const searchText = searchInput ? String(searchInput.value).toLowerCase().trim() : '';
     const activeGender = activeFilter ? activeFilter.value : 'all';
 
     bioContent.innerHTML = '';
@@ -27,14 +28,14 @@ function displayBios() {
     });
 
     if (filtered.length === 0) {
-        bioContent.innerHTML = `<div class="col-12"><p class="text-center mt-5">No biographies found matching "${searchText}".</p></div>`;
+        bioContent.innerHTML = `<div class="col-12 text-center text-light mt-5"><p>No biographies found matching "${escapeHtml(searchText)}".</p></div>`;
         return;
     }
 
     filtered.forEach(person => {
         const cardHtml = `
             <div class="col-md-4 bio-card">
-                <div class="card shadow-sm h-100">
+                <div class="card shadow-sm h-100 bg-dark text-light border-secondary">
                     <div class="card-body">
                         <h5 class="card-title">${escapeHtml(person.name)}</h5>
                         <p class="card-text">${escapeHtml(person.bio)}</p>
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterButtons = document.querySelectorAll('.filter-opt');
 
     if (searchInput) {
+        // Listening to the 'input' event correctly updates the layout on every keystroke
         searchInput.addEventListener('input', displayBios);
     }
 
@@ -65,16 +67,19 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('change', displayBios);
     });
 
+    // Generate initial layout display
     displayBios();
 });
 
-
+// FIXED CRASH: Safely query elements to avoid breaking the script environment
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.getElementById("filter-btn");
   const filterMenu = document.getElementById("filter-menu");
 
-  filterBtn.addEventListener("click", () => {
-    // Toggles the .open class on and off
-    filterMenu.classList.toggle("open");
-  });
+  // This check prevents "Cannot read properties of null" crashes if the buttons aren't in the HTML layout
+  if (filterBtn && filterMenu) {
+    filterBtn.addEventListener("click", () => {
+      filterMenu.classList.toggle("open");
+    });
+  }
 });
