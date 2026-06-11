@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <!-- Bootstrap CSS Framework -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    
+    <!-- Bootstrap v5.3.8 CSS Framework -->
+    <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="biography.css">
     
-    <!-- Material Symbols Font & Material Components Library -->
+    <!-- Google Material Symbols Icons Font -->
     <link rel="stylesheet" href="https://googleapis.com" />
+    
+    <!-- Google Material Design 3 Web Components Bundle -->
     <script type="module" src="https://jsdelivr.net"></script>
     
     <style>
@@ -21,7 +26,7 @@
             gap: 8px;
         }
 
-        /* Styles the Material field text to match your dark menu */
+        /* Material Component Dark Layout Theme overrides */
         md-outlined-text-field {
             --md-outlined-text-field-container-shape: 4px;
             --md-outlined-text-field-outline-color: #666;
@@ -101,11 +106,12 @@
 </nav>
 
 <main class="container">
+    <!-- Your biography.js reads this element container to add the cards -->
     <div id="bioContent" class="row"></div>
 </main>
 
 <footer class="site-footer mt-5">
-    <div class="footer-content">
+    <div class="footer-content text-center">
         <p>&copy; <span id="year"></span> 6D's Biographies. All Rights Reserved.</p>
         <div class="footer-links">
             <a href="privacy.html">Privacy Policy</a>
@@ -113,10 +119,12 @@
     </div>
 </footer>
 
-<!-- JavaScript Libraries (DO NOT DELETE) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+<!-- Framework Runtime Scripts -->
+<script src="https://jsdelivr.net" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 <script src="biography.js"></script>
+
 <script>
+  // Simple footer dynamic year calculation
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
