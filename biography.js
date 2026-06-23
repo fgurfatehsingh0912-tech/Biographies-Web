@@ -1,6 +1,6 @@
 const biographies = [
-    { name: 'A. P. J. Abdul Kalam', gender: 'male', bio: 'Gurfateh Singh' },
-    { name: 'Manmohan Singh', gender: 'male', bio: 'Gurfateh Singh' },
+    { name: 'A. P. J. Abdul Kalam', gender: 'male', bio: 'Gurfateh Singh', link: 'apj.html'},
+    { name: 'Manmohan Singh', gender: 'male', bio: 'Gurfateh Singh', link ''},
     { name: "John Smith", gender: "male", bio: "Gurfateh Singh" },
     { name: "Sarah Jenkins", gender: "male", bio: "Gurfateh Singh" },
     { name: "Michael Chen", gender: "male", bio: "Gurfateh Singh" },
