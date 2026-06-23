@@ -39,7 +39,11 @@ function displayBios() {
                     <div class="card-body">
                         <h5 class="card-title">${escapeHtml(person.name)}</h5>
                         <p class="card-text">${escapeHtml(person.bio)}</p>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Read More</button>
+                        <form action="#">
+                        <button class="gemini-perfect-button" id="gemini-btn">
+  <span class="btn-text">Read Biography</span>
+</button>
+</form>
                     </div>
                 </div>
             </div>
