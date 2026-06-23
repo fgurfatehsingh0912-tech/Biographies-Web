@@ -1,10 +1,10 @@
 const biographies = [
     { name: 'A. P. J. Abdul Kalam', gender: 'male', bio: 'Gurfateh Singh', link: 'apj.html'},
-    { name: 'Manmohan Singh', gender: 'male', bio: 'Gurfateh Singh', link ''},
-    { name: "John Smith", gender: "male", bio: "Gurfateh Singh" },
-    { name: "Sarah Jenkins", gender: "male", bio: "Gurfateh Singh" },
-    { name: "Michael Chen", gender: "male", bio: "Gurfateh Singh" },
-    { name: "Emma Wilson", gender: "female", bio: "Emily Johnson" }
+    { name: 'Manmohan Singh', gender: 'male', bio: 'Gurfateh Singh', link: 'Manmohan_Singh.html'},
+    { name: "John Smith", gender: "male", bio: "Gurfateh Singh", link: 'John_Smith.html'},
+    { name: "Sarah Jenkins", gender: "male", bio: "Gurfateh Singh", link: 'Sarah_Jenkins.html'},
+    { name: "Michael Chen", gender: "male", bio: "Gurfateh Singh", link:'Micheal_Chen.html'},
+    { name: "Emma Wilson", gender: "female", bio: "Emily Johnson", link: 'Emma_Wilson.html' }
 ];
 
 function displayBios() {
@@ -39,7 +39,7 @@ function displayBios() {
                     <div class="card-body">
                         <h5 class="card-title">${escapeHtml(person.name)}</h5>
                         <p class="card-text">${escapeHtml(person.bio)}</p>
-                        <form action="#">
+                        <form action="${escapeHtml(person.link)}">
                         <button class="gemini-perfect-button" id="gemini-btn">
   <span class="btn-text">Read Biography</span>
 </button>
@@ -86,4 +86,15 @@ document.addEventListener("DOMContentLoaded", () => {
       filterMenu.classList.toggle("open");
     });
   }
+});
+const btn = document.getElementById('gemini-btn');
+
+btn.addEventListener('mousemove', (e) => {
+  const rect = btn.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  // Feeds tracking coordinates directly back into the CSS variables
+  btn.style.setProperty('--x', `${x}px`);
+  btn.style.setProperty('--y', `${y}px`);
 });
