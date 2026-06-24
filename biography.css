@@ -101,7 +101,7 @@ hr {
 }
 
 /* THE INVERSE SHADOW LAYER: 
-   Dynamically dims the unhovered sides opposite your active cursor coordinates */
+   Completely kills and hides all light on the opposite side of the cursor */
 .gemini-perfect-button::after {
     content: "";
     position: absolute;
@@ -112,11 +112,11 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* Spotlight drop-off that filters out light far from your mouse */
+    /* THE BLACKOUT FIX: Opacity is 100% solid outside of the 55px cursor ring */
     background: radial-gradient(
-      65px circle at var(--x, 0px) var(--y, 0px),
-      transparent 15%,
-      rgba(33, 37, 41, 0.75) 75% /* Blends directly into Bootstrap dark mode card fields */
+      55px circle at var(--x, 0px) var(--y, 0px),
+      transparent 20%,
+      rgba(33, 37, 41, 1) 100% /* 100% Solid color completely covers background leaks */
     );
 }
 
