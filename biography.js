@@ -14,7 +14,6 @@ function displayBios() {
 
     if (!bioContent) return;
 
-    // Fixed: Standardized to safely read value strings from Material Web Components
     const searchText = searchInput ? String(searchInput.value).toLowerCase().trim() : '';
     const activeGender = activeFilter ? activeFilter.value : 'all';
 
@@ -33,23 +32,29 @@ function displayBios() {
     }
 
     filtered.forEach(person => {
+        // FIXED: Changed id="gemini-btn" to class="gemini-perfect-button"
         const cardHtml = `
             <div class="col-md-4 bio-card">
                 <div class="card shadow-sm h-100 bg-dark text-light border-secondary">
-                    <div class="card-body">
-                        <h5 class="card-title">${escapeHtml(person.name)}</h5>
-                        <p class="card-text">${escapeHtml(person.bio)}</p>
-                        <form action="${escapeHtml(person.link)}">
-                        <button class="gemini-perfect-button" id="gemini-btn">
-  <span class="btn-text">Read Biography</span>
-</button>
-</form>
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title">${escapeHtml(person.name)}</h5>
+                            <p class="card-text">${escapeHtml(person.bio)}</p>
+                        </div>
+                        <form action="${escapeHtml(person.link)}" class="mt-3">
+                            <button type="submit" class="gemini-perfect-button">
+                                <span class="btn-text">Read Biography</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         `;
         bioContent.insertAdjacentHTML('beforeend', cardHtml);
     });
+
+    // FIXED TIMING: Run mouse tracking setup AFTER cards are added to the page
+    addTrackingToButtons();
 }
 
 function escapeHtml(text) {
@@ -58,12 +63,27 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// FIXED LOGIC: Loops through ALL generated buttons instead of targeting just one
+function addTrackingToButtons() {
+    const buttons = document.querySelectorAll('.gemini-perfect-button');
+    
+    buttons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const filterButtons = document.querySelectorAll('.filter-opt');
 
     if (searchInput) {
-        // Listening to the 'input' event correctly updates the layout on every keystroke
         searchInput.addEventListener('input', displayBios);
     }
 
@@ -71,30 +91,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('change', displayBios);
     });
 
-    // Generate initial layout display
     displayBios();
 });
 
-// FIXED CRASH: Safely query elements to avoid breaking the script environment
 document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.getElementById("filter-btn");
   const filterMenu = document.getElementById("filter-menu");
 
-  // This check prevents "Cannot read properties of null" crashes if the buttons aren't in the HTML layout
   if (filterBtn && filterMenu) {
     filterBtn.addEventListener("click", () => {
       filterMenu.classList.toggle("open");
     });
   }
-});
-const btn = document.getElementById('gemini-btn');
-
-btn.addEventListener('mousemove', (e) => {
-  const rect = btn.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-
-  // Feeds tracking coordinates directly back into the CSS variables
-  btn.style.setProperty('--x', `${x}px`);
-  btn.style.setProperty('--y', `${y}px`);
 });
