@@ -1,17 +1,18 @@
 /* ==========================================
-   1. GLOBAL & BOOTSTRAP SITE FIXES
+   1. GLOBAL FRAMEWORK & BOOTSTRAP RESETS
    ========================================== */
 body {
     background-color: #121212;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 70px; /* Prevents fixed top navbar from overlapping content */
+    padding-top: 70px; /* Prevents the fixed navbar from overlapping your cards */
 }
 
+/* Spaces the biography card blocks cleanly down the page grid */
 .bio-card { 
     margin-bottom: 20px; 
 }
 
-/* Ensures the dynamic text description wraps nicely inside Bootstrap cards */
+/* Ensures layout heights match across text descriptions */
 .card-text {
     font-size: 14px;
     line-height: 1.6;
@@ -19,18 +20,30 @@ body {
 }
 
 /* ==========================================
-   2. NAVIGATION BAR & DROPDOWNS
+   2. NAVIGATION BAR & OFF-CANVAS SIDEBAR MENU
    ========================================== */
 .dropdown-menu { 
     padding: 10px; 
     min-width: 200px; 
 }
 
-/* Ensures the Google Material Icon and text align seamlessly inside navbar links */
+/* Ensures the Google Material Icon and text align seamlessly inside nav links */
 .nav-link {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+/* Clean, modern typography sizing for your slide-out menu header */
+.offcanvas-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* Custom separator lines inside the sidebar template menu */
+hr {
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ==========================================
@@ -136,7 +149,7 @@ body {
 }
 
 /* ==========================================
-   4. SITE FOOTER STYLING
+   4. SITE FOOTER FRAMEWORK
    ========================================== */
 .site-footer {
     padding: 20px 0;
