@@ -2,7 +2,7 @@
    1. GLOBAL FRAMEWORK & BOOTSTRAP RESETS
    ========================================== */
 body {
-    background-color: #0f0f11; /* Sleek, dark page backdrop canvas */
+    background-color: #0f0f11; /* Pitch dark canvas style */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding-top: 70px; /* Prevents fixed navbar from overlapping content */
 }
@@ -51,105 +51,74 @@ hr {
    ========================================== */
 .gemini-perfect-button {
     position: relative;
-    border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Perfect rounded pill shape capsule outline */
-    background: #000000;  /* Solid pitch black button base plate */
+    border-radius: 100px; /* Capsule pill layout shape */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
-    padding: 0;
+    
+    /* THE RADIUS FIX: 1.5px transparent border holds space for the thin line */
+    border: 1.5px solid transparent; 
+    
+    /* Static default slate gray border appearance when mouse is away */
+    background-image: linear-gradient(#000000, #000000), linear-gradient(#2c2c2e, #2c2c2e);
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Subtle physical hover pop feedback */
+/* Responsive pop on entry */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
 /* THE WORKING GRADIENT ENGINE: 
-   Injects an empty black mask core directly under the pointer variables */
-.gemini-perfect-button::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0; 
-    z-index: 1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    border-radius: 100px;
-
-    /* THE HOLLOW RADIAL ENGINE: Stacks four vibrant color points,
-       then punches a clean dark circle right under your mouse tip */
-    background: 
-      radial-gradient(
-        18px circle at var(--x, 50%) var(--y, 50%),
-        #000000 0%,                 /* THE FIX: Solid black gap directly under your cursor */
-        rgba(0, 0, 0, 0) 100%       /* Fades smoothly out to let outer ring colors shine */
-      ),
-      radial-gradient(
-        45px circle at calc(var(--x, 50%) - 14px) calc(var(--y, 50%) - 10px),
-        rgba(234, 67, 53, 1) 0%,     /* Bright Google Red */
-        transparent 95%
-      ),
-      radial-gradient(
-        45px circle at calc(var(--x, 50%) + 14px) calc(var(--y, 50%) - 10px),
-        rgba(66, 133, 244, 1) 0%,    /* Vibrant Google Blue */
-        transparent 95%
-      ),
-      radial-gradient(
-        45px circle at calc(var(--x, 50%) - 12px) calc(var(--y, 50%) + 12px),
-        rgba(251, 188, 5, 1) 0%,     /* Vivid Google Yellow */
-        transparent 95%
-      ),
-      radial-gradient(
-        45px circle at calc(var(--x, 50%) + 12px) calc(var(--y, 50%) + 12px),
-        rgba(52, 168, 83, 1) 0%,     /* Fresh Google Green */
-        transparent 95%
-      );
-
-    background-blend-mode: normal;
-
-    /* THE MOLECULAR MASK CLIP: Cleanly paths graphics solely along the outer rim */
-    -webkit-mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
-    mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
+   Punches a pure solid black hole directly under the mouse coordinates */
+.gemini-perfect-button:hover {
+    background-image: 
+        /* Layer 1: Solid Inner Shield plate matching the button background */
+        linear-gradient(#000000, #000000), 
         
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    
-    /* Elegant razor-sharp line width matching native Google Chrome UI layout */
-    border: 1.2px solid transparent;
+        /* Layer 2: THE HOLLOW MASK. Puts solid black right under your mouse pointer, 
+           fading rapidly to transparent to let the surrounding spectrum halos through. */
+        radial-gradient(
+            16px circle at var(--x, 50%) var(--y, 50%),
+            #000000 0%, 
+            #000000 40%,
+            transparent 100%
+        ),
+        
+        /* Layer 3: The pure neon color spectrum channels tracking cursor variables */
+        radial-gradient(
+            50px circle at calc(var(--x, 50%) - 16px) calc(var(--y, 50%) - 10px),
+            rgba(234, 67, 53, 1) 0%,     /* Google Red */
+            transparent 90%
+        ),
+        radial-gradient(
+            50px circle at calc(var(--x, 50%) + 16px) calc(var(--y, 50%) - 10px),
+            rgba(66, 133, 244, 1) 0%,    /* Google Blue */
+            transparent 90%
+        ),
+        radial-gradient(
+            50px circle at calc(var(--x, 50%) - 12px) calc(var(--y, 50%) + 12px),
+            rgba(251, 188, 5, 1) 0%,     /* Google Yellow */
+            transparent 90%
+        ),
+        radial-gradient(
+            50px circle at calc(var(--x, 50%) + 12px) calc(var(--y, 50%) + 12px),
+            rgba(52, 168, 83, 1) 0%,     /* Google Green */
+            transparent 90%
+        );
+        
+    /* Clips the gradient string layers natively along the outer button frame path */
+    background-clip: padding-box, border-box, border-box, border-box, border-box, border-box;
+    background-origin: border-box;
 }
 
-/* Reveals the fully rounded gradient tracking field instantly on hover */
-.gemini-perfect-button:hover::before {
-    opacity: 1;
-}
-
-/* THE FALLBACK OUTLINE: Clean dark grey base border line when your cursor is away */
-.gemini-perfect-button::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.2px solid #333336; /* Clean subtle gray line outline ring */
-    border-radius: 100px;
-    z-index: 0;
-    transition: opacity 0.2s ease;
-}
-
-.gemini-perfect-button:hover::after {
-    opacity: 0; /* Hides the idle border style while tracking is active */
-}
-
-/* THE INNER TEXT PANEL: Clean crisp white typography over pure solid black */
+/* THE INNER TEXT HOUSING: Keeps layout structure aligned */
 .btn-text {
     display: block;
-    position: relative;
-    z-index: 3; 
-    color: #ffffff; /* Clean white text matching the updated dark prompt layout style */
+    color: #ffffff; /* Clean white typography text matching Google update style */
     padding: 11px 24px;
     font-size: 14px;
     font-weight: 500;
