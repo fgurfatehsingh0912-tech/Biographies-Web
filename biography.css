@@ -54,10 +54,11 @@ hr {
     border: none !important;
     cursor: pointer;
     border-radius: 100px; /* Perfect rounded pill shape capsule outline */
-    background: #000000;  /* Solid pitch black button base plate */
+    background: #333336;  /* Subtle dark grey outline color when your cursor is away */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
-    padding: 0;
+    padding: 1.2px; /* Set the exact thickness of your ultra-thin border line */
+    overflow: hidden; /* Keeps the internal glow bounded */
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -75,13 +76,13 @@ hr {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    border-radius: 100px;
+    border-radius: inherit;
 
-    /* TYPO REMOVED: High intensity white core surrounded by pure Google neon values */
+    /* REBALANCED GRADIENT SPECTRUM: Pure vibrant neon points under your cursor position variables */
     background: 
       radial-gradient(
         22px circle at var(--x, 50%) var(--y, 50%),
-        rgba(255, 255, 255, 1) 0%,   /* True White tracking core */
+        rgba(255, 255, 255, 1) 0%,   /* True White tracking hotspot core */
         rgba(255, 255, 255, 0) 100%
       ),
       radial-gradient(
@@ -104,22 +105,6 @@ hr {
         rgba(52, 168, 83, 1) 0%,     /* Fresh Google Green */
         transparent 90%
       );
-
-    background-blend-mode: normal;
-
-    /* THE MOLECULAR MASK CLIP: Cleanly paths graphics solely along the outer rim */
-    -webkit-mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
-    mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
-        
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    
-    /* THE LINE RADIUS FIX: Ultra-thin elegant border width matching Google Chrome UI */
-    border: 1.2px solid transparent;
 }
 
 /* Reveals the fully rounded gradient tracking field instantly on hover */
@@ -127,31 +112,18 @@ hr {
     opacity: 1;
 }
 
-/* THE FALLBACK OUTLINE: Clean dark grey base border line when your cursor is away */
-.gemini-perfect-button::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.2px solid #333336; /* Clean subtle gray line outline ring */
-    border-radius: 100px;
-    z-index: 0;
-    transition: opacity 0.2s ease;
-}
-
-.gemini-perfect-button:hover::after {
-    opacity: 0; /* Hides the idle border style while tracking is active */
-}
-
-/* THE INNER TEXT PANEL: Clean crisp white typography over pure solid black */
+/* THE INNER TEXT PANEL: Solid pitch black mask shield plate layered over the raw gradient */
 .btn-text {
     display: block;
     position: relative;
     z-index: 3; 
-    color: #ffffff; /* Clean white text matching the updated dark prompt layout style */
+    background: #000000; /* Force inner plate to solid black to block out middle gradient fills */
+    color: #ffffff; /* Clean white typography text matching Google update style */
     padding: 11px 24px;
     font-size: 14px;
     font-weight: 500;
     text-align: center;
+    border-radius: 100px; /* Must copy border radius shapes perfectly */
     white-space: nowrap;
     letter-spacing: 0.2px;
 }
