@@ -4,7 +4,7 @@
 body {
     background-color: #121212;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 70px; /* Prevents fixed navbar from overlapping your cards */
+    padding-top: 70px; /* Prevents fixed navbar from overlapping your content */
 }
 
 /* Spaces the biography card blocks cleanly down the page grid */
@@ -12,7 +12,7 @@ body {
     margin-bottom: 20px; 
 }
 
-/* Ensures layout heights match across text descriptions */
+/* Ensures layout text descriptions stay readable */
 .card-text {
     font-size: 14px;
     line-height: 1.6;
@@ -106,22 +106,23 @@ hr {
 }
 
 /* THE INVERSE SHADOW LAYER: 
-   Completely kills and hides all light on the opposite side of the cursor */
+   Relaxed to prevent color slicing while keeping other sides dark */
 .gemini-perfect-button::after {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: -10px; left: -10px; right: -10px; bottom: -10px; /* Gives color fields breathing room */
     z-index: 2; /* Layered directly over the colorful aura layer */
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
     border-radius: 100px;
 
-    /* FIXED: Removed the old duplicated typo line to keep CSS parsing clean */
+    /* Pushed solid dark masking to 120px so your glow stays round and soft */
     background: radial-gradient(
-      65px circle at var(--x, 0px) var(--y, 0px),
-      transparent 25%,
-      rgba(33, 37, 41, 1) 100% /* 100% Solid color completely covers background leaks */
+      120px circle at var(--x, 0px) var(--y, 0px),
+      transparent 10%,
+      rgba(33, 37, 41, 0.4) 40%,
+      rgba(33, 37, 41, 1) 90% /* Pure dark mask safely far away from cursor */
     );
 }
 
@@ -147,7 +148,7 @@ hr {
     transition: background 0.2s, color 0.2s;
 }
 
-/* Subtle feedback change to the inner background tile when hovering over code blocks */
+/* Subtle feedback change to the inner background tile when hovering */
 .gemini-perfect-button:hover .btn-text {
     background: #2c3034; 
     color: #ffffff;
