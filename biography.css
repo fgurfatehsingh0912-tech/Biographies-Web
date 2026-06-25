@@ -47,19 +47,19 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (HOLLOW CENTER)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FULL SPECTRUM)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill layout shape */
+    border-radius: 100px; /* Capsule pill shape layout */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
     
-    /* THE RADIUS FIX: 1.5px transparent border holds space for the thin line */
+    /* THE RADIUS BOUNDARY: 1.5px transparent border path holds the thin line */
     border: 1.5px solid transparent; 
     
-    /* Static default slate gray border appearance when mouse is away */
+    /* Default idle state: simple elegant gray frame when cursor is away */
     background-image: linear-gradient(#000000, #000000), linear-gradient(#2c2c2e, #2c2c2e);
     background-clip: padding-box, border-box;
     background-origin: border-box;
@@ -67,55 +67,43 @@ hr {
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Responsive pop on entry */
+/* Responsive pop on entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
-/* THE WORKING GRADIENT ENGINE: 
-   Punches a pure solid black hole directly under the mouse coordinates */
+/* THE FULL-WHEEL HOLLOW GRADIENT LOOP ENGINE */
 .gemini-perfect-button:hover {
     background-image: 
-        /* Layer 1: Solid Inner Shield plate matching the button background */
+        /* Layer 1: Solid Inner Mask matching the button background */
         linear-gradient(#000000, #000000), 
         
-        /* Layer 2: THE HOLLOW MASK. Puts solid black right under your mouse pointer, 
-           fading rapidly to transparent to let the surrounding spectrum halos through. */
+        /* Layer 2: HOLLOW LENS MASK. Places a solid black gap directly under your pointer variables, 
+           fading rapidly out to let the full conic color spectrum loop ring through */
         radial-gradient(
-            16px circle at var(--x, 50%) var(--y, 50%),
+            22px circle at var(--x, 50%) var(--y, 50%),
             #000000 0%, 
-            #000000 40%,
+            #000000 45%,
             transparent 100%
         ),
         
-        /* Layer 3: The pure neon color spectrum channels tracking cursor variables */
-        radial-gradient(
-            50px circle at calc(var(--x, 50%) - 16px) calc(var(--y, 50%) - 10px),
-            rgba(234, 67, 53, 1) 0%,     /* Google Red */
-            transparent 90%
-        ),
-        radial-gradient(
-            50px circle at calc(var(--x, 50%) + 16px) calc(var(--y, 50%) - 10px),
-            rgba(66, 133, 244, 1) 0%,    /* Google Blue */
-            transparent 90%
-        ),
-        radial-gradient(
-            50px circle at calc(var(--x, 50%) - 12px) calc(var(--y, 50%) + 12px),
-            rgba(251, 188, 5, 1) 0%,     /* Google Yellow */
-            transparent 90%
-        ),
-        radial-gradient(
-            50px circle at calc(var(--x, 50%) + 12px) calc(var(--y, 50%) + 12px),
-            rgba(52, 168, 83, 1) 0%,     /* Google Green */
-            transparent 90%
+        /* Layer 3: THE FULL SPECTRUM CORES. Maps a complete, continuous 360-degree rainbow wheel 
+           centered exactly at your mouse position variable points instead of broken dots */
+        conic-gradient(
+            from 180deg at var(--x, 50%) var(--y, 50%),
+            #ea4335 0deg,    /* Google Red */
+            #4285f4 90deg,   /* Google Blue */
+            #34a853 180deg,  /* Google Green */
+            #fbbc05 270deg,  /* Google Yellow */
+            #ea4335 360deg   /* Closes the wheel loop seamlessly with no cut lines */
         );
         
-    /* Clips the gradient string layers natively along the outer button frame path */
-    background-clip: padding-box, border-box, border-box, border-box, border-box, border-box;
+    /* Tells the browser engine to clip background graphics natively along the border path */
+    background-clip: padding-box, border-box, border-box;
     background-origin: border-box;
 }
 
-/* THE INNER TEXT HOUSING: Keeps layout structure aligned */
+/* THE INNER TEXT HOUSING: Keeps padding uniform */
 .btn-text {
     display: block;
     color: #ffffff; /* Clean white typography text matching Google update style */
