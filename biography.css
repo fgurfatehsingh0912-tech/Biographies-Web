@@ -73,12 +73,12 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* NEW UPDATE GOOGLE CONFIG: Stacks a sharp white radial spotlight directly 
-       over your cursor variables, pushing the quadrants wide out from center */
+    /* Stacks a crisp white spotlight directly over your cursor variables, 
+       pushing the Google color spectrum ring out from the center core */
     background: 
       radial-gradient(
         24px circle at var(--x, 0px) var(--y, 0px),
-        rgba(255, 255, 255, 1) 0%,   /* True White Core */
+        rgba(255, 255, 255, 1) 0%,   /* True White Core under your pointer */
         rgba(255, 255, 255, 0) 100%
       ),
       radial-gradient(
@@ -117,17 +117,11 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* Spotlight mask that allows the white-core spectrum to be bright, 
-       while blacking out any remaining leakage along the opposing capsule track */
+    /* FIXED: Removed the old duplicated typo line to keep CSS parsing clean */
     background: radial-gradient(
       65px circle at var(--x, 0px) var(--y, 0px),
       transparent 25%,
-      rgba(33, 37, 41, 1) 100__
-    );
-    background: radial-gradient(
-      65px circle at var(--x, 0px) var(--y, 0px),
-      transparent 25%,
-      rgba(33, 37, 41, 1) 100%
+      rgba(33, 37, 41, 1) 100% /* 100% Solid color completely covers background leaks */
     );
 }
 
