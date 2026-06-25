@@ -54,7 +54,7 @@ hr {
     border: none !important;
     cursor: pointer;
     border-radius: 100px; /* Perfect rounded pill shape capsule outline */
-    background: #000000;  /* THE FIX: Solid pitch black button base plate */
+    background: #000000;  /* Solid pitch black button base plate */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
     padding: 0;
@@ -77,13 +77,8 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* UPDATED NEON MATRIX: High intensity white core surrounded by pure Google neon values */
+    /* TYPO REMOVED: High intensity white core surrounded by pure Google neon values */
     background: 
-      radial-gradient(
-        22px circle at var(--x, 50%) var(--y, 50%),
-        rgba(255, 255, 255, 1) 0%,   /* True White tracking core */
-        rgba(255, 255, 255, 0) 100__
-      ),
       radial-gradient(
         22px circle at var(--x, 50%) var(--y, 50%),
         rgba(255, 255, 255, 1) 0%,   /* True White tracking core */
