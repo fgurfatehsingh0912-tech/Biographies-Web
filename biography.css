@@ -47,7 +47,7 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FULL SPECTRUM)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (TRUE GRADIENT TRACK)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
@@ -72,7 +72,7 @@ hr {
     transform: scale(1.01);
 }
 
-/* THE FULL-WHEEL HOLLOW GRADIENT LOOP ENGINE */
+/* THE CONTINUOUS GRADIENT ENGINE */
 .gemini-perfect-button:hover {
     background-image: 
         /* Layer 1: Solid Inner Mask matching the button background */
@@ -87,15 +87,15 @@ hr {
             transparent 100%
         ),
         
-        /* Layer 3: THE FULL SPECTRUM CORES. Maps a complete, continuous 360-degree rainbow wheel 
-           centered exactly at your mouse position variable points instead of broken dots */
+        /* Layer 3: PURE GRADIENT GOOGLE LOGO WHEEL. 
+           Smoothly transitions through all colors without sharp section slices */
         conic-gradient(
             from 180deg at var(--x, 50%) var(--y, 50%),
-            #ea4335 0deg,    /* Google Red */
-            #4285f4 90deg,   /* Google Blue */
-            #34a853 180deg,  /* Google Green */
-            #fbbc05 270deg,  /* Google Yellow */
-            #ea4335 360deg   /* Closes the wheel loop seamlessly with no cut lines */
+            #ea4335, /* Google Red */
+            #4285f4, /* Google Blue */
+            #34a853, /* Google Green */
+            #fbbc05, /* Google Yellow */
+            #ea4335  /* Seamless loop closure back to Red */
         );
         
     /* Tells the browser engine to clip background graphics natively along the border path */
