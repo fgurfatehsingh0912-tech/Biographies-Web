@@ -51,65 +51,105 @@ hr {
    ========================================== */
 .gemini-perfect-button {
     position: relative;
+    border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Perfect rounded pill outline shape */
+    border-radius: 100px; /* Perfect pill-shaped capsule edges */
+    background: #212529; /* Matches Bootstrap card bg hex standard closely */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
-    
-    /* THE CUTOFF FIX: 2px transparent border holds space for the gradient line */
-    border: 2px solid transparent; 
-    
-    /* Default fallback states when cursor is away */
-    background-image: linear-gradient(#212529, #212529), linear-gradient(#2c2c2e, #2c2c2e);
-    background-clip: padding-box, border-box;
-    background-origin: border-box;
-    
+    padding: 0;
     transition: transform 0.2s ease;
 }
 
-/* DYNAMIC ENGINE: Stacks the white core and Google spectrum around your pointer coordinates */
-.gemini-perfect-button:hover {
-    background-image: 
-        /* Layer A: Solid Inner Mask matching the Bootstrap dark card background color */
-        linear-gradient(#212529, #212529), 
+/* THE WORKING GRADIENT ENGINE:
+   Expanded with negative positioning values to prevent any top or bottom clipping */
+.gemini-perfect-button::before {
+    content: "";
+    position: absolute;
+    /* Pushed outward by 20px so your color rings never hit a boundary wall and flatten */
+    top: -20px; 
+    left: -20px; 
+    right: -20px; 
+    bottom: -20px; 
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+
+    /* THE TRUE GRADIENT SPECTRUM: Stacks a bright white core centered under your cursor pointer */
+    background: 
+      radial-gradient(
+        24px circle at var(--x, 0px) var(--y, 0px),
+        rgba(255, 255, 255, 1) 0%,   /* True White Core under your pointer */
+        rgba(255, 255, 255, 0) 100%
+      ),
+      radial-gradient(
+        45px circle at calc(var(--x, 0px) - 16px) calc(var(--y, 0px) - 10px),
+        rgba(234, 67, 53, 0.95) 0%,   /* Google Red */
+        transparent 85%
+      ),
+      radial-gradient(
+        45px circle at calc(var(--x, 0px) + 16px) calc(var(--y, 0px) - 10px),
+        rgba(66, 133, 244, 0.95) 0%,  /* Google Blue */
+        transparent 85%
+      ),
+      radial-gradient(
+        45px circle at calc(var(--x, 0px) - 14px) calc(var(--y, 0px) + 12px),
+        rgba(251, 188, 5, 0.95) 0%,   /* Google Yellow */
+        transparent 85%
+      ),
+      radial-gradient(
+        45px circle at calc(var(--x, 0px) + 14px) calc(var(--y, 0px) + 12px),
+        rgba(52, 168, 83, 0.95) 0%,   /* Google Green */
+        transparent 85%
+      );
+
+    background-blend-mode: normal;
+
+    /* THE FIX: Native CSS Mask cuts out a crisp 2px border track matching the button shape. 
+       This completely stops the light from spreading inside the button text or outside its edges. */
+    -webkit-mask: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
+    mask: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
         
-        /* Layer B: Google Interactive Spectrum with White Core tracking pointer variables */
-        radial-gradient(
-            30px circle at var(--x, 50%) var(--y, 50%),
-            rgba(255, 255, 255, 1) 0%,     /* True White Core right under pointer */
-            rgba(255, 255, 255, 0) 100%
-        ),
-        radial-gradient(
-            55px circle at calc(var(--x, 50%) - 18px) calc(var(--y, 50%) - 10px),
-            rgba(234, 67, 53, 0.95) 0%,     /* Google Red */
-            transparent 85%
-        ),
-        radial-gradient(
-            55px circle at calc(var(--x, 50%) + 18px) calc(var(--y, 50%) - 10px),
-            rgba(66, 133, 244, 0.95) 0%,    /* Google Blue */
-            transparent 85%
-        ),
-        radial-gradient(
-            55px circle at calc(var(--x, 50%) - 14px) calc(var(--y, 50%) + 14px),
-            rgba(251, 188, 5, 0.95) 0%,     /* Google Yellow */
-            transparent 85%
-        ),
-        radial-gradient(
-            55px circle at calc(var(--x, 50%) + 14px) calc(var(--y, 50%) + 14px),
-            rgba(52, 168, 83, 0.95) 0%,     /* Google Green */
-            transparent 85%
-        );
-        
-    /* Tells the browser engine to clip background graphics natively along the border path */
-    background-clip: padding-box, border-box, border-box, border-box, border-box, border-box;
-    background-origin: border-box;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    /* Sets the precise thickness of your tracking border line */
+    border: 2px solid transparent;
+    padding: 20px; 
 }
 
-/* THE INNER TEXT CONTAINER: Keeps padding uniform */
+/* Reveals the fully rounded gradient tracking field instantly on hover */
+.gemini-perfect-button:hover::before {
+    opacity: 1;
+}
+
+/* THE FALLBACK OUTLINE: Serves as a gray ring outline container when your cursor is away */
+.gemini-perfect-button::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 2px solid #2c2c2e;
+    border-radius: 100px;
+    z-index: 0;
+    transition: opacity 0.2s ease;
+}
+
+.gemini-perfect-button:hover::after {
+    opacity: 0; /* Hides the idle border style while tracking is active */
+}
+
+/* THE INNER TEXT SHIELD: Spaces button layout content fields uniformly */
 .btn-text {
     display: block;
+    position: relative;
+    z-index: 3; /* Positions text safely over background graphics elements layers */
     color: #e3e3e3;
-    padding: 10px 24px;
+    padding: 12px 28px;
     font-size: 14px;
     font-weight: 500;
     text-align: center;
