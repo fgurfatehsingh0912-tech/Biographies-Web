@@ -27,27 +27,24 @@ body {
     min-width: 200px; 
 }
 
-/* Ensures the Google Material Icon and text align seamlessly inside nav links */
 .nav-link {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* Clean, modern typography sizing for your slide-out menu header */
 .offcanvas-title {
     font-size: 1.25rem;
     font-weight: 600;
     color: #ffffff;
 }
 
-/* Custom separator lines inside the sidebar template menu */
 hr {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (EDGE-LOCKED HOLLOW CENTER)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (SMOOTH FLUID LERP)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
@@ -72,19 +69,17 @@ hr {
     transform: scale(1.01);
 }
 
-/* THE EDGE-LOCKED GRADIENT LOOP ENGINE */
+/* THE SMOOTH-MOVING GRADIENT ENGINE */
 .gemini-perfect-button:hover {
     background-image: 
         /* Layer 1: Solid Inner Mask matching the button background */
         linear-gradient(#000000, #000000), 
         
-        /* Layer 2: THE SQUISHED HOLLOW MASK. 
-           THE FIX: Converted from a large circle to an asymmetric ellipse shape. 
-           It keeps a wide black zone directly under the cursor horizontally, but squeezes 
-           the vertical height down to 22px. This stops the black shadow from bleeding onto 
-           the opposite border rim when you track near the top or bottom edges. */
+        /* Layer 2: THE SQUISHED HOLLOW MASK.
+           Maintains a wide black space right under your current variable tracking coordinates, 
+           while keeping the opposite rim bright and completely safe from color slicing. */
         radial-gradient(
-            ellipse 75px 22px at var(--x, 50%) var(--y, 50%),
+            ellipse 70px 22px at var(--x, 50%) var(--y, 50%),
             #000000 0%, 
             #000000 50%,
             transparent 100%
