@@ -52,7 +52,8 @@ function displayBios() {
         bioContent.insertAdjacentHTML('beforeend', cardHtml);
     });
 
-    addTrackingToButtons();
+    // FIXED: Added a tiny timeout delay so the browser finishes rendering the HTML cards before finding the buttons
+    setTimeout(addTrackingToButtons, 10);
 }
 
 function escapeHtml(text) {
@@ -61,17 +62,27 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// THE PHYSICS ENGINE: Drives the smooth fluid transition loop
+// THE PHYSICS ENGINE: Drives the smooth fluid transition loop with inertia lag
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
     
     buttons.forEach(button => {
-        // Create isolated state objects for each separate layout button card
+        // Prevent duplicate loops from attaching to the exact same button multiple times
+        if (button.dataset.trackingInitialized === "true") return;
+        button.dataset.trackingInitialized = "true";
+
         let state = {
             targetX: 0, targetY: 0,
             currentX: 0, currentY: 0,
             isHovered: false
         };
+
+        // Center the engine variables safely on load
+        const rectOnLoad = button.getBoundingClientRect();
+        state.targetX = rectOnLoad.width / 2;
+        state.targetY = rectOnLoad.height / 2;
+        state.currentX = state.targetX;
+        state.currentY = state.targetY;
 
         button.addEventListener('mousemove', (e) => {
             const rect = button.getBoundingClientRect();
@@ -90,19 +101,17 @@ function addTrackingToButtons() {
 
         // High frequency animation frame loop ticks coordinates smoothly
         function updateCoordinatesLoop() {
-            if (state.isHovered) {
-                // THE SMOOTH LERP FACTOR (0.08 = 8% of total distance covered per frame)
-                // Lowering this number makes it glide slower and heavier!
-                state.currentX += (state.targetX - state.currentX) * 0.08;
-                state.currentY += (state.targetY - state.currentY) * 0.08;
+            // THE SMOOTH LERP FACTOR (0.07 = 7% of distance covered per frame)
+            // This forces the gradient track to slowly glide behind your cursor point smoothly
+            state.currentX += (state.targetX - state.currentX) * 0.07;
+            state.currentY += (state.targetY - state.currentY) * 0.07;
 
-                button.style.setProperty('--x', `${state.currentX}px`);
-                button.style.setProperty('--y', `${state.currentY}px`);
-            }
+            button.style.setProperty('--x', `${state.currentX}px`);
+            button.style.setProperty('--y', `${state.currentY}px`);
+
             requestAnimationFrame(updateCoordinatesLoop);
         }
         
-        // Boot animation tracking ticks
         requestAnimationFrame(updateCoordinatesLoop);
     });
 }
