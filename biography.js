@@ -32,7 +32,6 @@ function displayBios() {
     }
 
     filtered.forEach(person => {
-        // FIXED: Changed id="gemini-btn" to class="gemini-perfect-button"
         const cardHtml = `
             <div class="col-md-4 bio-card">
                 <div class="card shadow-sm h-100 bg-dark text-light border-secondary">
@@ -53,7 +52,6 @@ function displayBios() {
         bioContent.insertAdjacentHTML('beforeend', cardHtml);
     });
 
-    // FIXED TIMING: Run mouse tracking setup AFTER cards are added to the page
     addTrackingToButtons();
 }
 
@@ -63,19 +61,49 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// FIXED LOGIC: Loops through ALL generated buttons instead of targeting just one
+// THE PHYSICS ENGINE: Drives the smooth fluid transition loop
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
     
     buttons.forEach(button => {
+        // Create isolated state objects for each separate layout button card
+        let state = {
+            targetX: 0, targetY: 0,
+            currentX: 0, currentY: 0,
+            isHovered: false
+        };
+
         button.addEventListener('mousemove', (e) => {
             const rect = button.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            button.style.setProperty('--x', `${x}px`);
-            button.style.setProperty('--y', `${y}px`);
+            state.targetX = e.clientX - rect.left;
+            state.targetY = e.clientY - rect.top;
+            state.isHovered = true;
         });
+
+        button.addEventListener('mouseenter', () => {
+            state.isHovered = true;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            state.isHovered = false;
+        });
+
+        // High frequency animation frame loop ticks coordinates smoothly
+        function updateCoordinatesLoop() {
+            if (state.isHovered) {
+                // THE SMOOTH LERP FACTOR (0.08 = 8% of total distance covered per frame)
+                // Lowering this number makes it glide slower and heavier!
+                state.currentX += (state.targetX - state.currentX) * 0.08;
+                state.currentY += (state.targetY - state.currentY) * 0.08;
+
+                button.style.setProperty('--x', `${state.currentX}px`);
+                button.style.setProperty('--y', `${state.currentY}px`);
+            }
+            requestAnimationFrame(updateCoordinatesLoop);
+        }
+        
+        // Boot animation tracking ticks
+        requestAnimationFrame(updateCoordinatesLoop);
     });
 }
 
@@ -92,15 +120,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     displayBios();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const filterBtn = document.getElementById("filter-btn");
-  const filterMenu = document.getElementById("filter-menu");
-
-  if (filterBtn && filterMenu) {
-    filterBtn.addEventListener("click", () => {
-      filterMenu.classList.toggle("open");
-    });
-  }
 });
