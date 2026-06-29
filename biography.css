@@ -44,56 +44,72 @@ hr {
 /* ==========================================
    3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FULLY DYNAMIC FLOW)
    ========================================== */
+/* --- GOOGLE AI INTERACTIVE BUTTON MECHANICS (DYNAMIC SPECTRUM) --- */
 .gemini-perfect-button {
     position: relative;
-    border: none !important;
     cursor: pointer;
-    border-radius: 100px;
-    background: #000000;  
-    width: 100%; 
+    border-radius: 100px; /* Capsule pill layout shape shape */
+    width: 100%; /* Spans full width of its parent container container */
     outline: none !important;
     padding: 0;
+    
+    /* THE RADIUS BOUNDARY: 1.5px transparent border path holds the thin line layout */
+    border: 1.5px solid transparent; 
+    
+    /* Default idle state: simple elegant gray frame when cursor is away */
+    background-image: linear-gradient(#000000, #000000), linear-gradient(#2c2c2e, #2c2c2e);
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    
+    /* Smooth physical hover scale response feedback loop */
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Subtle physical hover pop feedback on cursor entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
+/* THE HOLLOW ASYMMETRIC GRADIENT TRACK MECHANICS */
 .gemini-perfect-button:hover {
     background-image: 
         /* Layer 1: Solid Inner Mask matching button backdrop black */
         linear-gradient(#000000, #000000), 
         
-        /* Layer 2: THE ASYMMETRIC MASK.
-           Maintains the wide empty gap on the right and snaps directly to cursor on the left */
+        /* Layer 2: THE HOLLOW MASK.
+           Punches a black space right under your current coordinate variables, 
+           offsetting 25px rightward to create the hollow lens tail. */
         radial-gradient(
-            ellipse 70px 24px at calc(var(--x, 50%) + 30px) var(--y, 50%),
+            ellipse 65px 22px at calc(var(--x, 50%) + 25px) var(--y, 50%),
             #000000 0%, 
-            #000000 40%,
+            #000000 45%,
             transparent 100%
         ),
         
-        /* Layer 3: THE FLOWING LOGO GRADIENT STRIP.
-           THE FIX: Instead of a static backdrop, the colors travel along the X axis using var(--pct-x).
-           This ensures the entire color spectrum follows your mouse dynamically! */
-        linear-gradient(
-            90deg,
-            #000000 calc(var(--pct-x, 50%) - 40%),
-            #ea4335 calc(var(--pct-x, 50%) - 15%), /* Red */
-            #4285f4 calc(var(--pct-x, 50%) - 5%),  /* Blue */
-            #34a853 calc(var(--pct-x, 50%) + 5%),  /* Green */
-            #fbbc05 calc(var(--pct-x, 50%) + 15%), /* Yellow */
-            #000000 calc(var(--pct-x, 50%) + 40%)
+        /* Layer 3: THE COMPRESSED CONIC FLOW WHEEL.
+           THE FIX: All 4 Google colors are squeezed in order into a narrow angle block 
+           at the center of the cursor variables. The entire remaining circle area is pure black,
+           ensuring that the entire color cluster travels with your mouse position seamlessly! */
+        conic-gradient(
+            from 240deg at var(--x, 50%) var(--y, 50%),
+            #ea4335 0deg,     /* Google Red */
+            #4285f4 40deg,    /* Google Blue */
+            #34a853 80deg,    /* Google Green */
+            #fbbc05 120deg,   /* Google Yellow */
+            #ea4335 150deg,   /* Closes color wheel path cycle tightly */
+            #000000 151deg,   /* Pure black takes over the rest of the circle metrics */
+            #000000 360deg
         );
         
+    /* Tells the browser engine to clip background graphics natively along the border path */
     background-clip: padding-box, border-box, border-box;
     background-origin: border-box;
 }
 
+/* THE INNER TEXT HOUSING: Spaces button typography content fields uniformly */
 .btn-text {
     display: block;
-    color: #ffffff; 
+    color: #ffffff; /* Clean white typography text matching Google update style */
     padding: 11px 24px;
     font-size: 14px;
     font-weight: 500;
@@ -101,6 +117,7 @@ hr {
     white-space: nowrap;
     letter-spacing: 0.2px;
 }
+
 
 /* ==========================================
    4. SITE FOOTER STYLING
