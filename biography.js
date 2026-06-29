@@ -20,11 +20,9 @@ function displayBios() {
 
     if (!bioContent) return;
 
-    // Standardize query text data to safely support string operations
     const searchText = searchInput ? String(searchInput.value).toLowerCase().trim() : '';
     const activeGender = activeFilter ? activeFilter.value : 'all';
 
-    // Reset old canvas contents layout before appending fresh query blocks
     bioContent.innerHTML = '';
 
     const filtered = biographies.filter(person => {
@@ -60,7 +58,6 @@ function displayBios() {
         bioContent.insertAdjacentHTML('beforeend', cardHtml);
     });
 
-    // TIMING DELAY FIX: Allows the browser engine to fully draw cards into view before running tracking logic
     setTimeout(addTrackingToButtons, 15);
 }
 
@@ -77,7 +74,6 @@ function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
     
     buttons.forEach(button => {
-        // Prevent duplicate process loops from attaching to the exact same button DOM nodes
         if (button.dataset.trackingInitialized === "true") return;
         button.dataset.trackingInitialized = "true";
 
@@ -86,7 +82,6 @@ function addTrackingToButtons() {
             currentX: 0, currentY: 0
         };
 
-        // Center coordinates safely on window bootups to prevent visual edge snaps
         const initialRect = button.getBoundingClientRect();
         state.targetX = initialRect.width / 2;
         state.targetY = initialRect.height / 2;
@@ -98,31 +93,26 @@ function addTrackingToButtons() {
             const mouseX = e.clientX - currentRect.left;
             const mouseY = e.clientY - currentRect.top;
 
-            // X-Axis tracks the mouse pointer natively
             state.targetX = mouseX;
 
-            // EDGE-LOCKING CONDITIONALS:
-            // Forces the target coordinate to jump to top or bottom borders automatically
             if (mouseY < currentRect.height / 2) {
-                state.targetY = 0; // Stick to the top edge line if cursor hovers top half
+                state.targetY = 0; 
             } else {
-                state.targetY = currentRect.height; // Stick to the bottom edge line
+                state.targetY = currentRect.height; 
             }
         });
 
-        // HIGH FREQUENCY ENGINE LOOP: Runs smoothly matching display refresh rates (60Hz-120Hz+)
         function updateCoordinatesLoop() {
-            /* 
-               THE INTERPOLATION INERTIA SLOPE (0.07)
-               - Covers 7% of remaining path gaps per screen frame refresh.
-               - Delivers that characteristic slow, rich, authentic Google AI fluid drag feel.
-            */
             state.currentX += (state.targetX - state.currentX) * 0.07;
             state.currentY += (state.targetY - state.currentY) * 0.07;
 
-            // Pipeline calculations straight back to CSS variables mapping targets
+            // Compute current width percentage to shift the color spectrum container in real time
+            const buttonWidth = button.getBoundingClientRect().width || 1;
+            const pctX = (state.currentX / buttonWidth) * 100;
+
             button.style.setProperty('--x', `${state.currentX}px`);
             button.style.setProperty('--y', `${state.currentY}px`);
+            button.style.setProperty('--pct-x', `${pctX}%`); // Drives the moving color position
 
             requestAnimationFrame(updateCoordinatesLoop);
         }
@@ -138,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const filterButtons = document.querySelectorAll('.filter-opt');
 
-    // Live search indexing filter handlers
     if (searchInput) {
         searchInput.addEventListener('input', displayBios);
     }
@@ -147,11 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('change', displayBios);
     });
 
-    // Generate layout grid metrics on window bootup sequence
     displayBios();
 });
 
-// Guarded sidebar off-canvas click listeners to prevent null-reference runtime exceptions
 document.addEventListener("DOMContentLoaded", () => {
     const filterBtn = document.getElementById("filter-btn");
     const filterMenu = document.getElementById("filter-menu");
