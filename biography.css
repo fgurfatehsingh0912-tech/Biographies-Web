@@ -46,14 +46,16 @@ hr {
 /* ==========================================
    3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (SMOOTH FLUID LERP)
    ========================================== */
+/* --- GOOGLE AI INTERACTIVE BUTTON MECHANICS --- */
 .gemini-perfect-button {
     position: relative;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill shape layout */
-    width: 100%; /* Spans full width of biography card content area */
+    border-radius: 100px; /* Capsule pill layout shape shape */
+    width: 100%; /* Spans full width of its parent container container */
     outline: none !important;
+    padding: 0;
     
-    /* THE RADIUS BOUNDARY: 1.5px transparent border path holds the thin line */
+    /* THE RADIUS BOUNDARY: 1.5px transparent border path holds the thin line layout */
     border: 1.5px solid transparent; 
     
     /* Default idle state: simple elegant gray frame when cursor is away */
@@ -61,38 +63,40 @@ hr {
     background-clip: padding-box, border-box;
     background-origin: border-box;
     
+    /* Smooth physical hover scale response feedback loop */
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Responsive pop on entry bounds */
+/* Subtle physical hover pop feedback on cursor entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
-/* THE SMOOTH-MOVING GRADIENT ENGINE */
+/* THE ASYMMETRIC HOLLOW GRADIENT LOOP ENGINE */
 .gemini-perfect-button:hover {
     background-image: 
         /* Layer 1: Solid Inner Mask matching the button background */
         linear-gradient(#000000, #000000), 
         
-        /* Layer 2: THE SQUISHED HOLLOW MASK.
-           Maintains a wide black space right under your current variable tracking coordinates, 
-           while keeping the opposite rim bright and completely safe from color slicing. */
+        /* Layer 2: THE OFFSET ASYMMETRIC MASK. 
+           THE FIX: Shifting the center point x-axis to calc(var(--x) + 30px) pushes the blank space 
+           to the right. This lets the left side of the color gradient trail touch your cursor 
+           pointer directly, while a clean, dark 70px gap stretches out to the right side! */
         radial-gradient(
-            ellipse 70px 22px at var(--x, 50%) var(--y, 50%),
+            ellipse 70px 24px at calc(var(--x, 50%) + 30px) var(--y, 50%),
             #000000 0%, 
-            #000000 50%,
+            #000000 40%,
             transparent 100%
         ),
         
-        /* Layer 3: PURE GRADIENT GOOGLE LOGO WHEEL. 
-           Smoothly transitions through all colors without sharp section slices */
-        conic-gradient(
-            from 180deg at var(--x, 50%) var(--y, 50%),
-            #ea4335, /* Google Red */
-            #4285f4, /* Google Blue */
-            #34a853, /* Google Green */
-            #fbbc05, /* Google Yellow */
+        /* Layer 3: PURE CHRONOLOGICAL GOOGLE LOGO SPECTRUM STRIP.
+           Lays out all 4 colors in a beautiful, flowing linear ribbon tracking your cursor coordinates. */
+        linear-gradient(
+            90deg,
+            #ea4335, /* Pure Google Red */
+            #4285f4, /* Pure Google Blue */
+            #34a853, /* Pure Google Green */
+            #fbbc05, /* Pure Google Yellow */
             #ea4335  /* Seamless loop closure back to Red */
         );
         
@@ -101,7 +105,7 @@ hr {
     background-origin: border-box;
 }
 
-/* THE INNER TEXT HOUSING: Keeps padding uniform */
+/* THE INNER TEXT HOUSING: Spaces button typography content fields uniformly */
 .btn-text {
     display: block;
     color: #ffffff; /* Clean white typography text matching Google update style */
@@ -112,6 +116,7 @@ hr {
     white-space: nowrap;
     letter-spacing: 0.2px;
 }
+
 
 /* ==========================================
    4. SITE FOOTER FRAMEWORK
