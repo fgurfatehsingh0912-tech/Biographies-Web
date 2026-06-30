@@ -47,7 +47,7 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FIXED GLOW LAYER)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (TRUE GRAPHIC FLOW)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
@@ -67,7 +67,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Isolating graphics onto a pseudo-element fixes the browser invisibility bug completely */
+   Uses independent tracking spots so colors follow the cursor completely */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -78,31 +78,44 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE TRUE ASYMMETRIC COLOR MATRIX: 
-       Combines the hollow rightward gap mask and the compressed color spectrum loop */
+    /* THE TRUE MOTION MATRIX: 
+       We stack 4 separate colors offset in a tight horizontal line.
+       As the cursor moves, the entire cluster moves as one solid pack, 
+       while an offset black lens mask punches the trailing gap on the right! */
     background: 
-      /* Sub-Layer A: The Hollow Mask. Hollows out a wide dark space rightward calc(var(--x) + 25px) */
+      /* Sub-Layer A: The Hollow Mask. Keeps a wide dark gap 35px to the right of the cursor */
       radial-gradient(
-          ellipse 65px 22px at calc(var(--x, 50%) + 25px) var(--y, 50%),
+          ellipse 60px 22px at calc(var(--x, 50%) + 35px) var(--y, 50%),
           #000000 0%, 
-          #000000 45%,
+          #000000 50%,
           transparent 100%
       ),
-      /* Sub-Layer B: The Squeezed Conic Loop. Clusters all 4 colors tightly under your pointer */
-      conic-gradient(
-          from 240deg at var(--x, 50%) var(--y, 50%),
-          #ea4335 0deg,     /* Google Red */
-          #4285f4 40deg,    /* Google Blue */
-          #34a853 80deg,    /* Google Green */
-          #fbbc05 120deg,   /* Google Yellow */
-          #ea4335 150deg,   /* Closes color loop back to Red */
-          #000000 151deg,   /* Solid black leaves the rest of the outline clean and dark */
-          #000000 360deg
+      /* Sub-Layer B-E: The 4 Independent Google Spotlights. 
+         They are tightly chained to the cursor coordinates, making them flow with it. */
+      radial-gradient(
+          35px circle at calc(var(--x, 50%) - 14px) var(--y, 50%),
+          rgba(234, 67, 53, 1) 0%,    /* Pure Google Red */
+          transparent 100%
+      ),
+      radial-gradient(
+          35px circle at calc(var(--x, 50%) - 4px) var(--y, 50%),
+          rgba(66, 133, 244, 1) 0%,   /* Pure Google Blue */
+          transparent 100%
+      ),
+      radial-gradient(
+          35px circle at calc(var(--x, 50%) + 6px) var(--y, 50%),
+          rgba(52, 168, 83, 1) 0%,    /* Pure Google Green */
+          transparent 100%
+        ),
+      radial-gradient(
+          35px circle at calc(var(--x, 50%) + 16px) var(--y, 50%),
+          rgba(251, 188, 5, 1) 0%,    /* Pure Google Yellow */
+          transparent 100%
       );
       
     background-blend-mode: normal;
 
-    /* NATIVE CSS MASK EXCLUSION: Drops clipping box reliance and cuts a razor-sharp 1.5px track */
+    /* NATIVE CSS MASK EXCLUSION: Cuts a sharp 1.5px border outline track */
     -webkit-mask: 
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
