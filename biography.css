@@ -79,40 +79,41 @@ hr {
 }
 
 /* THE ASYMMETRIC COLOR MATRIX PROPELLER:
-   We bundle the dark trailing gap and the 4 pure color spots together into one layer.
-   Because this element sits behind a solid text container, it wraps perfectly around curves 
-   without flattening, turn muddy, or washing out into white! */
+   We bundle the dark trailing gap and the 4 pure color spots together into one layer. */
 .btn-glow-container::before {
     content: "";
     position: absolute;
     top: -20px; left: -20px; right: -20px; bottom: -20px; /* Bleed space prevents corner slicing */
     
     background: 
-      /* Sub-Layer A: The Hollow Mask. Sweeps an empty black gap exactly 24px to the right of the cursor variables. */
+      /* Sub-Layer A: The Hollow Mask. 
+         THE DIRECTIONAL FIX: Using a minus (- 35px) shifts the black lens mask over to the left side 
+         of the cluster. This keeps the right trailing side wide open and empty, forcing the pure 
+         Google colors to follow your cursor directions perfectly in real-time! */
       radial-gradient(
-          ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
+          ellipse 65px 24px at calc(var(--x, 50%) - 35px) var(--y, 50%),
           #000000 0%, 
           #000000 50%,
           transparent 100%
       ),
-      /* Sub-Layer B-E: 4 pure color spotlights clustered closely on the left side of your pointer. */
+      /* Sub-Layer B-E: 4 pure color spotlights clustered closely right under your pointer coordinates. */
       radial-gradient(
-          40px circle at calc(var(--x, 50%) - 18px) var(--y, 50%),
+          45px circle at calc(var(--x, 50%) - 14px) var(--y, 50%),
           rgba(234, 67, 53, 1) 0%,    /* Google Red */
           transparent 100%
       ),
       radial-gradient(
-          40px circle at calc(var(--x, 50%) - 6px) var(--y, 50%),
+          45px circle at calc(var(--x, 50%) - 2px) var(--y, 50%),
           rgba(66, 133, 244, 1) 0%,   /* Google Blue */
           transparent 100%
       ),
       radial-gradient(
-          40px circle at calc(var(--x, 50%) + 4px) var(--y, 50%),
+          45px circle at calc(var(--x, 50%) + 10px) var(--y, 50%),
           rgba(52, 168, 83, 1) 0%,    /* Google Green */
           transparent 100%
       ),
       radial-gradient(
-          40px circle at calc(var(--x, 50%) + 12px) var(--y, 50%),
+          45px circle at calc(var(--x, 50%) + 22px) var(--y, 50%),
           rgba(251, 188, 5, 1) 0%,    /* Google Yellow */
           transparent 100%
       );
