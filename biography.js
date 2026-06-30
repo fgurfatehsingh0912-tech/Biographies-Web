@@ -47,11 +47,9 @@ function displayBios() {
                             <p class="card-text">${escapeHtml(person.bio)}</p>
                         </div>
                         <form action="${escapeHtml(person.link)}" class="mt-3">
-                            <button class="gemini-perfect-button">
-    <div class="btn-glow-container"></div>
-    <span class="btn-text">Read Biography</span>
-</button>
-
+                            <button type="submit" class="gemini-perfect-button">
+                                <div class="btn-glow-container"></div>
+                                <span class="btn-text">Read Biography</span>
                             </button>
                         </form>
                     </div>
@@ -71,7 +69,7 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. INERTIA LAG PHYSICS ENGINE (LERP + BORDER LOCK)
+// 3. INERTIA LAG PHYSICS ENGINE (LERP + EDGE-LOCKING)
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
@@ -79,6 +77,10 @@ function addTrackingToButtons() {
     buttons.forEach(button => {
         if (button.dataset.trackingInitialized === "true") return;
         button.dataset.trackingInitialized = "true";
+
+        // Find our isolated color container layout box node
+        const glowContainer = button.querySelector('.btn-glow-container');
+        if (!glowContainer) return;
 
         let state = {
             targetX: 0, targetY: 0,
@@ -98,7 +100,7 @@ function addTrackingToButtons() {
 
             state.targetX = mouseX;
 
-            // EDGE-LOCKING: Safely maps the Y position variables straight to target edges
+            // EDGE-LOCKING: Locks the vertical track center directly onto the border bounds
             if (mouseY < currentRect.height / 2) {
                 state.targetY = 0; 
             } else {
@@ -106,14 +108,15 @@ function addTrackingToButtons() {
             }
         });
 
-        // SMOOTH ANIMATION CLOCK TICK LOOP
+        // HIGH FREQUENCY PHYSICS ENGINE ANIMATION LOOP
         function updateCoordinatesLoop() {
-            // Glides coordinates with a slow, smooth inertia lag (0.07 fraction)
+            // Eases position values frame-by-frame to generate that smooth fluid lag (0.07 fraction)
             state.currentX += (state.targetX - state.currentX) * 0.07;
             state.currentY += (state.targetY - state.currentY) * 0.07;
 
-            button.style.setProperty('--x', `${state.currentX}px`);
-            button.style.setProperty('--y', `${state.currentY}px`);
+            // IMPORTANT: Inject variables into the isolated container element instead of the main button wrapper
+            glowContainer.style.setProperty('--x', `${state.currentX}px`);
+            glowContainer.style.setProperty('--y', `${state.currentY}px`);
 
             requestAnimationFrame(updateCoordinatesLoop);
         }
@@ -123,7 +126,7 @@ function addTrackingToButtons() {
 }
 
 // ============================================================================
-// 4. MAIN WINDOW SYSTEM INITIALIZATION
+// 4. WINDOW DATA INITIALIZATION SYSTEM
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
