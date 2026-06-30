@@ -78,18 +78,12 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE REBALANCED DIRECTIONAL MATRIX:
+    /* THE DIRECTIONAL FIXED MATRIX:
        - Layer A: The Hollow Mask. Sweeps an empty black gap exactly 24px to the right of your cursor.
        - Layer B-E: 4 pure color spotlights clustered closely on the LEFT side of your pointer coordinates.
          Because they are anchored directly to the mouse positions with a proportional offset loop,
-         they are physically forced to travel forward WITH your cursor direction in real-time! */
+         they travel forward WITH your cursor direction in real-time! */
     background: 
-      radial-gradient(
-          ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
-          #000000 0%, 
-          #000000 50%,
-          transparent 100__
-      ),
       radial-gradient(
           ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
           #000000 0%, 
