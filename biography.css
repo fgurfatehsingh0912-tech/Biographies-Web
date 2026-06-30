@@ -67,7 +67,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Uses an inverse stencil mask to force colors to flow completely with your cursor */
+   Uses a coordinate-flipped inverse mask to lock colors to your cursor movement */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -78,10 +78,10 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE SOLID SPECTRUM: We lay down a continuous, fluid color loop across the base.
-       It uses your exact coordinates so the colors rotate around your cursor. */
+    /* THE BACKPLATE WHEEL: 
+       FIXED: Flipped rotation index base from 180deg to 0deg to correct inverse tracking */
     background: conic-gradient(
-        from 180deg at var(--x, 50%) var(--y, 50%),
+        from 0deg at var(--x, 50%) var(--y, 50%),
         #ea4335, /* Google Red */
         #4285f4, /* Google Blue */
         #34a853, /* Google Green */
@@ -89,23 +89,22 @@ hr {
         #ea4335  /* Seamless loop closure back to Red */
     );
 
-    /* THE INVERSE MASK STENCIL: 
-       Instead of blocking colors out, this mask layer hides everything on the button rim 
-       EXCEPT for a tight 70px capsule window that travels with your cursor variables. 
-       This forces ALL the colors to stay tightly packed together right under your mouse pointer, 
-       while keeping the rest of the button outline completely black at all times! */
+    /* THE INVERSE MASK TRACK: 
+       FIXED: Flipped horizontal coordinate offset from (+ 18px) to (- 18px).
+       This guarantees that the colors move strictly WITH your mouse direction—directly 
+       touching the left side of your pointer while keeping the right side clean and black! */
     -webkit-mask: 
         radial-gradient(
-            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
+            ellipse 70px 24px at calc(var(--x, 50%) - 18px) var(--y, 50%), 
             rgba(0,0,0,1) 0%, 
             rgba(0,0,0,1) 35%, 
-            transparent 100__
+            transparent 100%
         ) intersect,
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
     mask: 
         radial-gradient(
-            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
+            ellipse 70px 24px at calc(var(--x, 50%) - 18px) var(--y, 50%), 
             rgba(0,0,0,1) 0%, 
             rgba(0,0,0,1) 35%, 
             transparent 100%
@@ -154,7 +153,7 @@ hr {
 }
 
 /* ==========================================
-   4. SITE FOOTER FRAMEWORK (RESTORED)
+   4. SITE FOOTER FRAMEWORK 
    ========================================== */
 .site-footer {
     padding: 20px 0;
