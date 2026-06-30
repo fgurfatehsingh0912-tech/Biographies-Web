@@ -20,11 +20,9 @@ function displayBios() {
 
     if (!bioContent) return;
 
-    // Standardize query text data to safely support string operations
     const searchText = searchInput ? String(searchInput.value).toLowerCase().trim() : '';
     const activeGender = activeFilter ? activeFilter.value : 'all';
 
-    // Reset old canvas contents layout before appending fresh query blocks
     bioContent.innerHTML = '';
 
     const filtered = biographies.filter(person => {
@@ -60,7 +58,6 @@ function displayBios() {
         bioContent.insertAdjacentHTML('beforeend', cardHtml);
     });
 
-    // TIMING DELAY FIX: Allows the browser engine to fully draw cards into view before running tracking logic
     setTimeout(addTrackingToButtons, 15);
 }
 
@@ -71,58 +68,61 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. ASYMMETRIC SMOOTH PHYSICS ENGINE (LERP + EDGE-LOCKING)
+// 3. DUAL-COORDINATE PHYSICS INERTIA ENGINE (LERP TRACKING)
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
     
     buttons.forEach(button => {
-        // Prevent duplicate process loops from attaching to the exact same button DOM nodes
         if (button.dataset.trackingInitialized === "true") return;
         button.dataset.trackingInitialized = "true";
 
         let state = {
             targetX: 0, targetY: 0,
-            currentX: 0, currentY: 0
+            colorX: 0, colorY: 0,
+            maskX: 0, maskY: 0
         };
 
-        // Center coordinates safely on window bootups to prevent visual edge snaps
         const initialRect = button.getBoundingClientRect();
         state.targetX = initialRect.width / 2;
         state.targetY = initialRect.height / 2;
-        state.currentX = state.targetX;
-        state.currentY = state.targetY;
+        
+        state.colorX = state.targetX;
+        state.colorY = state.targetY;
+        state.maskX = state.targetX + 35; // Preset the rightward gap offset on boot
+        state.maskY = state.targetY;
 
         button.addEventListener('mousemove', (e) => {
             const currentRect = button.getBoundingClientRect();
             const mouseX = e.clientX - currentRect.left;
             const mouseY = e.clientY - currentRect.top;
 
-            // X-Axis tracks the mouse pointer natively
             state.targetX = mouseX;
 
-            // EDGE-LOCKING CONDITIONALS:
-            // Forces the target coordinate to jump to top or bottom borders automatically
+            // EDGE-LOCKING: Snaps the Y-axis center perfectly to the active rim boundary line
             if (mouseY < currentRect.height / 2) {
-                state.targetY = 0; // Stick to the top edge line if cursor hovers top half
+                state.targetY = 0; 
             } else {
-                state.targetY = currentRect.height; // Stick to the bottom edge line
+                state.targetY = currentRect.height; 
             }
         });
 
-        // HIGH FREQUENCY ENGINE LOOP: Runs smoothly matching display refresh rates (60Hz-120Hz+)
+        // HIGH FREQUENCY ANIMATION TICK RATE LOOP
         function updateCoordinatesLoop() {
-            /* 
-               THE INTERPOLATION INERTIA SLOPE (0.07)
-               - Covers 7% of remaining path gaps per screen frame refresh.
-               - Delivers that characteristic slow, rich, authentic Google AI fluid drag feel.
-            */
-            state.currentX += (state.targetX - state.currentX) * 0.07;
-            state.currentY += (state.targetY - state.currentY) * 0.07;
+            // 1. Color coordinates glide closely behind the mouse pointer
+            state.colorX += (state.targetX - state.colorX) * 0.08;
+            state.colorY += (state.targetY - state.colorY) * 0.08;
 
-            // Pipeline calculations straight back to CSS variables mapping targets
-            button.style.setProperty('--x', `${state.currentX}px`);
-            button.style.setProperty('--y', `${state.currentY}px`);
+            // 2. Mask coordinates lag with a dedicated horizontal offset (+35px to the right)
+            const targetMaskX = state.targetX + 35;
+            state.maskX += (targetMaskX - state.maskX) * 0.06; // Slower speed creates fluid inertia lag trail
+            state.maskY += (state.targetY - state.maskY) * 0.08;
+
+            // Pipeline calculations directly to the CSS engine mapping tags
+            button.style.setProperty('--x', `${state.colorX}px`);
+            button.style.setProperty('--y', `${state.colorY}px`);
+            button.style.setProperty('--mask-x', `${state.maskX}px`);
+            button.style.setProperty('--mask-y', `${state.maskY}px`);
 
             requestAnimationFrame(updateCoordinatesLoop);
         }
@@ -132,13 +132,12 @@ function addTrackingToButtons() {
 }
 
 // ============================================================================
-// 4. MAIN WINDOW LIFE-CYCLE SYSTEM INITIALIZATION
+// 4. MAIN WINDOW SYSTEM INITIALIZATION
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
     const filterButtons = document.querySelectorAll('.filter-opt');
 
-    // Live search indexing filter handlers
     if (searchInput) {
         searchInput.addEventListener('input', displayBios);
     }
@@ -147,18 +146,5 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('change', displayBios);
     });
 
-    // Generate layout grid metrics on window bootup sequence
     displayBios();
-});
-
-// Guarded sidebar off-canvas click listeners to prevent null-reference runtime exceptions
-document.addEventListener("DOMContentLoaded", () => {
-    const filterBtn = document.getElementById("filter-btn");
-    const filterMenu = document.getElementById("filter-menu");
-
-    if (filterBtn && filterMenu) {
-        filterBtn.addEventListener("click", () => {
-            filterMenu.classList.toggle("open");
-        });
-    }
 });
