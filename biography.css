@@ -42,13 +42,13 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (DUAL-AXIS PHYSICS)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill layout shape shape */
+    border-radius: 100px; /* Capsule pill layout shape */
     background: #000000;  /* Solid pitch black button base plate */
     width: 100%; 
     outline: none !important;
@@ -61,7 +61,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Separated from layout rules to guarantee 100% browser rendering stability */
+   Using independent circles ensures colors stay perfectly round and wrap curves smoothly */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -72,9 +72,9 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* DUAL LAYER ENGINE:
-       - Layer A: The tracking dark ellipse mask sits at var(--mask-x), punching a hollow trail to the right.
-       - Layer B: A vibrant linear spectrum sits at var(--x), shifting all 4 colors right with your mouse. */
+    /* THE TRUE MOTION MATRIX:
+       - Layer 1: The tracking dark ellipse mask sits at var(--mask-x), punching a hollow trail to the right.
+       - Layer 2-5: Tight, rounded color clusters that stay circular and wrap around corners smoothly. */
     background: 
       radial-gradient(
           ellipse 75px 24px at var(--mask-x, 50%) var(--mask-y, 50%),
@@ -82,14 +82,25 @@ hr {
           #000000 50%,
           transparent 100%
       ),
-      linear-gradient(
-          90deg,
-          #000000 calc(var(--x, 50%) - 60px),
-          #ea4335 calc(var(--x, 50%) - 20px), /* Pure Google Red */
-          #4285f4 calc(var(--x, 50%) - 5px),  /* Pure Google Blue */
-          #34a853 calc(var(--x, 50%) + 10px), /* Pure Google Green */
-          #fbbc05 calc(var(--x, 50%) + 25px), /* Pure Google Yellow */
-          #000000 calc(var(--x, 50%) + 60px)
+      radial-gradient(
+          45px circle at calc(var(--x, 50%) - 15px) var(--y, 50%),
+          rgba(234, 67, 53, 1) 0%,    /* Google Red */
+          transparent 100%
+      ),
+      radial-gradient(
+          45px circle at calc(var(--x, 50%) - 2px) var(--y, 50%),
+          rgba(66, 133, 244, 1) 0%,   /* Google Blue */
+          transparent 100%
+      ),
+      radial-gradient(
+          45px circle at calc(var(--x, 50%) + 10px) var(--y, 50%),
+          rgba(52, 168, 83, 1) 0%,    /* Google Green */
+          transparent 100%
+      ),
+      radial-gradient(
+          45px circle at calc(var(--x, 50%) + 22px) var(--y, 50%),
+          rgba(251, 188, 5, 1) 0%,    /* Google Yellow */
+          transparent 100%
       );
       
     background-blend-mode: normal;
