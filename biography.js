@@ -69,7 +69,7 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. INERTIA LAG PHYSICS ENGINE (LERP + EDGE-LOCKING) WITH AXIS DIRECTION FIX
+// 3. INERTIA LAG PHYSICS ENGINE (LERP + EDGE-LOCKING)
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
@@ -94,14 +94,12 @@ function addTrackingToButtons() {
 
         button.addEventListener('mousemove', (e) => {
             const currentRect = button.getBoundingClientRect();
-            const mouseX = e.clientX - currentRect.left;
+            
+            // CLEAN TRACKING: Reads raw mouse coordinates natively with zero inversions
+            state.targetX = e.clientX - currentRect.left;
+
+            // EDGE-LOCKING: Snaps tracking strictly onto the closest rim boundary line
             const mouseY = e.clientY - currentRect.top;
-
-            // THE DIRECTION FIX: Multiplies coordinates to invert the reversed tracking direction.
-            // This forces the colors to travel right when your mouse moves right!
-            state.targetX = currentRect.width - mouseX;
-
-            // EDGE-LOCKING: Keeps tracking locked strictly on the upper or lower rim line profile
             if (mouseY < currentRect.height / 2) {
                 state.targetY = 0; 
             } else {
@@ -109,12 +107,13 @@ function addTrackingToButtons() {
             }
         });
 
-        // HIGH FREQUENCY ANIMATION FRAME LOOP TOCK
+        // HIGH FREQUENCY ANIMATION PHYSICS TICK LOOP
         function updateCoordinatesLoop() {
+            // Eases positions smoothly frame-by-frame to generate that authentic fluid lag (0.07 fraction)
             state.currentX += (state.targetX - state.currentX) * 0.07;
             state.currentY += (state.targetY - state.currentY) * 0.07;
 
-            // Send calculations directly into our isolated background graphics panel container box
+            // Inject coordinate variables straight into the isolated background container layout box
             glowContainer.style.setProperty('--x', `${state.currentX}px`);
             glowContainer.style.setProperty('--y', `${state.currentY}px`);
 
