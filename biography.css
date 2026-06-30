@@ -42,13 +42,13 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FLUID ORBIT)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (ASYMMETRIC MASK SHIELD)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Perfect rounded pill shape layout capsule */
+    border-radius: 100px; /* Capsule pill layout shape shape */
     background: #000000;  /* Solid pitch black button base plate */
     width: 100%; 
     outline: none !important;
@@ -61,7 +61,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Receives dynamic wavy layout offsets from JavaScript to prevent flat lines */
+   Preserves absolute border path alignment across all web rendering engines */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -72,36 +72,24 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE FLUID RADIAL STACK:
-       - Layer 1: The tracking dark ellipse mask sits at var(--mask-x), punching a hollow trail to the right.
-       - Layer 2-5: The 4 Google colors read dynamic wave positioning variables (--rx, --by, etc.), 
-         allowing them to snake, rotate, and wrap curves fluidly without ever turning flat. */
+    /* THE REAL GOOGLE ASYMMETRIC ENGINE:
+       - Layer A: A solid black linear shield block. It starts right at your cursor position 
+         plus a small 10px buffer, completely wiping out any color trailing to the right side.
+       - Layer B: A pure continuous conic gradient wheel tracking your mouse coordinates smoothly,
+         allowing the full colorful spectrum loop to wrap around curves nicely on the left. */
     background: 
-      radial-gradient(
-          ellipse 75px 24px at var(--mask-x, 50%) var(--mask-y, 50%),
-          #000000 0%, 
-          #000000 50%,
-          transparent 100%
+      linear-gradient(
+          90deg,
+          transparent calc(var(--x, 50%) + 10px),
+          #000000 calc(var(--x, 50%) + 20px)   /* THE GAP SHIELD: Keeps the trailing right side empty and black */
       ),
-      radial-gradient(
-          45px circle at var(--rx, 50%) var(--ry, 50%),
-          rgba(234, 67, 53, 1) 0%,    /* Google Red */
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at var(--bx, 50%) var(--by, 50%),
-          rgba(66, 133, 244, 1) 0%,   /* Google Blue */
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at var(--gx, 50%) var(--gy, 50%),
-          rgba(52, 168, 83, 1) 0%,    /* Google Green */
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at var(--yx, 50%) var(--yy, 50%),
-          rgba(251, 188, 5, 1) 0%,    /* Google Yellow */
-          transparent 100%
+      conic-gradient(
+          from 180deg at var(--x, 50%) var(--y, 50%),
+          #ea4335, /* Google Red */
+          #4285f4, /* Google Blue */
+          #34a853, /* Google Green */
+          #fbbc05, /* Google Yellow */
+          #ea4335  /* Seamless loop closure back to Red */
       );
       
     background-blend-mode: normal;
