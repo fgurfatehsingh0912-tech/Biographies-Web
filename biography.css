@@ -94,7 +94,7 @@ hr {
     border: 1.5px solid transparent;
 }
 
-/* LAYER 2 (THE TRAILING GAP SHIELD): Wipes out all colors on the right side of the cursor */
+/* LAYER 2 (THE TRAILING GAP SHIELD): Wipes out colors on the right using a curved capsule mask */
 .gemini-perfect-button::after {
     content: "";
     position: absolute;
@@ -105,11 +105,14 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* ASYMMETRIC MASK BLOCK: Blocks out color starting 15px to the right of your cursor position */
-    background: linear-gradient(
-        90deg,
-        transparent calc(var(--x, 50%) + 15px),
-        #000000 calc(var(--x, 50%) + 25px)
+    /* THE CURVE FIX: Uses an asymmetrical, stretched ellipse mask instead of a straight linear gradient.
+       It punches a wide black zone starting 25px to the right of your cursor. Because it is a rounded 
+       ellipse shape, it moves fluidly and curves along the capsule arcs without sharp vertical cuts. */
+    background: radial-gradient(
+        ellipse 70px 24px at calc(var(--x, 50%) + 25px) var(--y, 50%),
+        #000000 0%, 
+        #000000 50%,
+        transparent 100%
     );
 
     /* Clips the black shield block to use the exact same 1.5px border outline track */
@@ -135,7 +138,7 @@ hr {
 .btn-text {
     display: block;
     position: relative;
-    z-index: 3; /* Lift text container completely above the shadow dimming element layers */
+    z-index: 3; /* Lift text container completely above the shadow layers */
     color: #ffffff; 
     padding: 11px 24px;
     font-size: 14px;
