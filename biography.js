@@ -68,7 +68,7 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. DUAL-COORDINATE PHYSICS INERTIA ENGINE (LERP TRACKING)
+// 3. TRIGONOMETRIC FLUID ORBIT ENGINE (LERP + WAVE DEFORMATION)
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
@@ -79,17 +79,17 @@ function addTrackingToButtons() {
 
         let state = {
             targetX: 0, targetY: 0,
-            colorX: 0, colorY: 0,
-            maskX: 0, maskY: 0
+            currentX: 0, currentY: 0,
+            maskX: 0, maskY: 0,
+            time: Math.random() * 100 // Adds a unique layout clock index per button card
         };
 
         const initialRect = button.getBoundingClientRect();
         state.targetX = initialRect.width / 2;
         state.targetY = initialRect.height / 2;
-        
-        state.colorX = state.targetX;
-        state.colorY = state.targetY;
-        state.maskX = state.targetX + 35; // Preset the rightward gap offset on boot
+        state.currentX = state.targetX;
+        state.currentY = state.targetY;
+        state.maskX = state.targetX + 35;
         state.maskY = state.targetY;
 
         button.addEventListener('mousemove', (e) => {
@@ -99,7 +99,7 @@ function addTrackingToButtons() {
 
             state.targetX = mouseX;
 
-            // EDGE-LOCKING: Snaps the Y-axis center perfectly to the active rim boundary line
+            // EDGE-LOCKING: Forces the vertical trajectory axis directly onto target lines
             if (mouseY < currentRect.height / 2) {
                 state.targetY = 0; 
             } else {
@@ -107,22 +107,43 @@ function addTrackingToButtons() {
             }
         });
 
-        // HIGH FREQUENCY ANIMATION TICK RATE LOOP
+        // HIGH-FREQUENCY CALCULATIONS RENDER CLOCK TICK
         function updateCoordinatesLoop() {
-            // 1. Color coordinates glide closely behind the mouse pointer
-            state.colorX += (state.targetX - state.colorX) * 0.08;
-            state.colorY += (state.targetY - state.colorY) * 0.08;
+            state.time += 0.03; // Controls velocity wave ripple speeds inside the halo loop
 
-            // 2. Mask coordinates lag with a dedicated horizontal offset (+35px to the right)
+            // Linear Interpolation curves glide positions smoothly
+            state.currentX += (state.targetX - state.currentX) * 0.08;
+            state.currentY += (state.targetY - state.currentY) * 0.08;
+
+            // The protective dark mask lags slightly with a fixed horizontal gap rightward
             const targetMaskX = state.targetX + 35;
-            state.maskX += (targetMaskX - state.maskX) * 0.06; // Slower speed creates fluid inertia lag trail
+            state.maskX += (targetMaskX - state.maskX) * 0.05;
             state.maskY += (state.targetY - state.maskY) * 0.08;
 
-            // Pipeline calculations directly to the CSS engine mapping tags
-            button.style.setProperty('--x', `${state.colorX}px`);
-            button.style.setProperty('--y', `${state.colorY}px`);
+            // THE GRAPHIC FLUID FIX: Calculate separate trigonometric waves for all 4 Google spot vectors
+            // This lets them curve, rotate, and snake around corners naturally instead of tracking flat lines
+            const waveIntensity = 12; // Radius width of the fluid loop halo cloud cluster
+            
+            const rX = state.currentX + Math.cos(state.time) * waveIntensity - 16;
+            const rY = state.currentY + Math.sin(state.time) * waveIntensity;
+
+            const bX = state.currentX + Math.cos(state.time + 1.5) * waveIntensity - 4;
+            const bY = state.currentY + Math.sin(state.time + 1.5) * waveIntensity;
+
+            const gX = state.currentX + Math.cos(state.time + 3.0) * waveIntensity + 6;
+            const gY = state.currentY + Math.sin(state.time + 3.0) * waveIntensity;
+
+            const yX = state.currentX + Math.cos(state.time + 4.5) * waveIntensity + 18;
+            const yY = state.currentY + Math.sin(state.time + 4.5) * waveIntensity;
+
+            // Pipe coordinate indices natively to the CSS custom matrix rules
             button.style.setProperty('--mask-x', `${state.maskX}px`);
             button.style.setProperty('--mask-y', `${state.maskY}px`);
+            
+            button.style.setProperty('--rx', `${rX}px`); button.style.setProperty('--ry', `${rY}px`);
+            button.style.setProperty('--bx', `${bX}px`); button.style.setProperty('--by', `${bY}px`);
+            button.style.setProperty('--gx', `${gX}px`); button.style.setProperty('--gy', `${gY}px`);
+            button.style.setProperty('--yx', `${yX}px`); button.style.setProperty('--yy', `${yY}px`);
 
             requestAnimationFrame(updateCoordinatesLoop);
         }
@@ -132,7 +153,7 @@ function addTrackingToButtons() {
 }
 
 // ============================================================================
-// 4. MAIN WINDOW SYSTEM INITIALIZATION
+// 4. LIFE-CYCLE INITIALIZATION SYSTEM
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
