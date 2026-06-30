@@ -47,13 +47,13 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (UNIFIED COLLISION-FREE PACK)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (PERFECT ASYMMETRIC MASK)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill shape layout */
+    border-radius: 100px; /* Perfect rounded pill shape capsule outline */
     background: #000000;  /* Solid pitch black button base plate */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
@@ -67,7 +67,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT ELEMENT: 
-   Combining all filters into one single layer prevents any browser rendering collisions */
+   Uses native mask layers to handle the asymmetric tracking without layout collisions */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -78,17 +78,10 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE BROWSER-COMPATIBLE SPECTRUM PACK: 
-       By stacking the gradients from top-to-bottom within ONE layer, the browser renders perfectly:
-       1. The top solid black ellipse blocks out any colors starting 24px to the right of your pointer.
-       2. The four underlying radial spots render pure, rich Google color circles on the left side. */
+    /* THE TRUE BROWSER SPECTRUM:
+       We stack your 4 pure color spotlights directly on the base canvas.
+       Since they are on top, they retain their 100% full, unblocked brightness! */
     background: 
-      radial-gradient(
-          ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
-          #000000 0%, 
-          #000000 55%,
-          transparent 100%
-      ),
       radial-gradient(
           40px circle at calc(var(--x, 50%) - 18px) var(--y, 50%),
           rgba(234, 67, 53, 1) 0%,    /* Pure Google Red */
@@ -112,15 +105,32 @@ hr {
       
     background-blend-mode: normal;
 
-    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly along the 1.5px outer rim path */
+    /* THE TRUE SOLUTION: 
+       We add an interactive radial exclusion mask directly inside the native mask string!
+       1. The linear-gradients cut a sharp 1.5px border track around the capsule.
+       2. The radial-gradient acts like a custom lens: it blocks everything 24px to the right 
+          of your cursor, forcing the colors to stay tightly packed on the left side of your mouse! */
     -webkit-mask: 
+        radial-gradient(
+            ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%), 
+            transparent 0%, 
+            transparent 45%, 
+            #fff 100%
+        ),
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
     mask: 
+        radial-gradient(
+            ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%), 
+            transparent 0%, 
+            transparent 45%, 
+            #fff 100%
+        ),
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+        
+    -webkit-mask-composite: source-in, xor;
+    mask-composite: intersect, exclude;
     
     border: 1.5px solid transparent;
 }
@@ -135,7 +145,7 @@ hr {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.5px solid #333336; /* Clean subtle gray line outline ring when idle */
+    border: 1.5px solid #333336; /* Clean gray outline line when idle */
     border-radius: 100px;
     z-index: 0;
     transition: opacity 0.2s ease;
@@ -149,7 +159,7 @@ hr {
 .btn-text {
     display: block;
     position: relative;
-    z-index: 3; /* Lift text layer completely above background layouts */
+    z-index: 3; 
     color: #ffffff; 
     padding: 11px 24px;
     font-size: 14px;
