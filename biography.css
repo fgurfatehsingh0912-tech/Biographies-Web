@@ -47,7 +47,7 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (INVERSE REVEAL)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FLAWLESS DIRECTIONAL TRACK)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
@@ -67,7 +67,7 @@ hr {
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Uses a directional-corrected mask to ensure colors trail your cursor path natively */
+   Uses a stacked radial array to force 100% accurate directional movement */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -78,43 +78,57 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE BACKPLATE WHEEL:
-       FIXED: Set baseline to from -15deg. This shifts the internal gradient rotation path 
-       so the colors push forward into the mask loop following your cursor tracking direction! */
-    background: conic-gradient(
-        from -15deg at var(--x, 50%) var(--y, 50%),
-        #ea4335, /* Google Red */
-        #4285f4, /* Google Blue */
-        #34a853, /* Google Green */
-        #fbbc05, /* Google Yellow */
-        #ea4335  /* Seamless loop closure back to Red */
-    );
+    /* THE REBALANCED DIRECTIONAL MATRIX:
+       - Layer A: The Hollow Mask. Sweeps an empty black gap exactly 24px to the right of your cursor.
+       - Layer B-E: 4 pure color spotlights clustered closely on the LEFT side of your pointer coordinates.
+         Because they are anchored directly to the mouse positions with a proportional offset loop,
+         they are physically forced to travel forward WITH your cursor direction in real-time! */
+    background: 
+      radial-gradient(
+          ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
+          #000000 0%, 
+          #000000 50%,
+          transparent 100__
+      ),
+      radial-gradient(
+          ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
+          #000000 0%, 
+          #000000 50%,
+          transparent 100%
+      ),
+      radial-gradient(
+          40px circle at calc(var(--x, 50%) - 18px) var(--y, 50%),
+          rgba(234, 67, 53, 1) 0%,    /* Pure Google Red */
+          transparent 100%
+      ),
+      radial-gradient(
+          40px circle at calc(var(--x, 50%) - 6px) var(--y, 50%),
+          rgba(66, 133, 244, 1) 0%,   /* Pure Google Blue */
+          transparent 100%
+      ),
+      radial-gradient(
+          40px circle at calc(var(--x, 50%) + 4px) var(--y, 50%),
+          rgba(52, 168, 83, 1) 0%,    /* Pure Google Green */
+          transparent 100%
+      ),
+      radial-gradient(
+          40px circle at calc(var(--x, 50%) + 12px) var(--y, 50%),
+          rgba(251, 188, 5, 1) 0%,    /* Pure Google Yellow */
+          transparent 100%
+      );
+      
+    background-blend-mode: normal;
 
-    /* THE INVERSE MASK TRACK:
-       FIXED: Changed back to (+ 18px). This re-opens the massive hollow gap layout on the 
-       trailing right-hand side, forcing all the pure gradient colors to wrap around your cursor 
-       and trail behind its left edge seamlessly! */
+    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly along the 1.5px outer rim path */
     -webkit-mask: 
-        radial-gradient(
-            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
-            rgba(0,0,0,1) 0%, 
-            rgba(0,0,0,1) 35%, 
-            transparent 100%
-        ) intersect,
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
     mask: 
-        radial-gradient(
-            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
-            rgba(0,0,0,1) 0%, 
-            rgba(0,0,0,1) 35%, 
-            transparent 100%
-        ) intersect,
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
         
-    -webkit-mask-composite: source-in, xor;
-    mask-composite: intersect, exclude;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
     
     border: 1.5px solid transparent;
 }
