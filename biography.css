@@ -2,17 +2,15 @@
    1. GLOBAL FRAMEWORK & BOOTSTRAP RESETS
    ========================================== */
 body {
-    background-color: #0f0f11; /* Pitch dark canvas style */
+    background-color: #0f0f11;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 70px; /* Prevents fixed navbar from overlapping content */
+    padding-top: 70px;
 }
 
-/* Spaces the biography card blocks cleanly down the page grid */
 .bio-card { 
     margin-bottom: 20px; 
 }
 
-/* Ensures layout text descriptions stay readable */
 .card-text {
     font-size: 14px;
     line-height: 1.6;
@@ -27,47 +25,43 @@ body {
     min-width: 200px; 
 }
 
-/* Ensures the Google Material Icon and text align seamlessly inside nav links */
 .nav-link {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
-/* Clean, modern typography sizing for your slide-out menu header */
 .offcanvas-title {
     font-size: 1.25rem;
     font-weight: 600;
     color: #ffffff;
 }
 
-/* Custom separator lines inside the sidebar template menu */
 hr {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (TRUE GRAPHIC FLOW)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (DUAL-AXIS PHYSICS)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill shape layout */
+    border-radius: 100px; /* Capsule pill layout shape shape */
     background: #000000;  /* Solid pitch black button base plate */
-    width: 100%; /* Spans full width of biography card content area */
+    width: 100%; 
     outline: none !important;
     padding: 0;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Subtle physical hover pop feedback on cursor entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Uses independent tracking spots so colors follow the cursor completely */
+   Separated from layout rules to guarantee 100% browser rendering stability */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -78,44 +72,29 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE TRUE MOTION MATRIX: 
-       We stack 4 separate colors offset in a tight horizontal line.
-       As the cursor moves, the entire cluster moves as one solid pack, 
-       while an offset black lens mask punches the trailing gap on the right! */
+    /* DUAL LAYER ENGINE:
+       - Layer A: The tracking dark ellipse mask sits at var(--mask-x), punching a hollow trail to the right.
+       - Layer B: A vibrant linear spectrum sits at var(--x), shifting all 4 colors right with your mouse. */
     background: 
-      /* Sub-Layer A: The Hollow Mask. Keeps a wide dark gap 35px to the right of the cursor */
       radial-gradient(
-          ellipse 60px 22px at calc(var(--x, 50%) + 35px) var(--y, 50%),
+          ellipse 75px 24px at var(--mask-x, 50%) var(--mask-y, 50%),
           #000000 0%, 
           #000000 50%,
           transparent 100%
       ),
-      /* Sub-Layer B-E: The 4 Independent Google Spotlights. 
-         They are tightly chained to the cursor coordinates, making them flow with it. */
-      radial-gradient(
-          35px circle at calc(var(--x, 50%) - 14px) var(--y, 50%),
-          rgba(234, 67, 53, 1) 0%,    /* Pure Google Red */
-          transparent 100%
-      ),
-      radial-gradient(
-          35px circle at calc(var(--x, 50%) - 4px) var(--y, 50%),
-          rgba(66, 133, 244, 1) 0%,   /* Pure Google Blue */
-          transparent 100%
-      ),
-      radial-gradient(
-          35px circle at calc(var(--x, 50%) + 6px) var(--y, 50%),
-          rgba(52, 168, 83, 1) 0%,    /* Pure Google Green */
-          transparent 100%
-        ),
-      radial-gradient(
-          35px circle at calc(var(--x, 50%) + 16px) var(--y, 50%),
-          rgba(251, 188, 5, 1) 0%,    /* Pure Google Yellow */
-          transparent 100%
+      linear-gradient(
+          90deg,
+          #000000 calc(var(--x, 50%) - 60px),
+          #ea4335 calc(var(--x, 50%) - 20px), /* Pure Google Red */
+          #4285f4 calc(var(--x, 50%) - 5px),  /* Pure Google Blue */
+          #34a853 calc(var(--x, 50%) + 10px), /* Pure Google Green */
+          #fbbc05 calc(var(--x, 50%) + 25px), /* Pure Google Yellow */
+          #000000 calc(var(--x, 50%) + 60px)
       );
       
     background-blend-mode: normal;
 
-    /* NATIVE CSS MASK EXCLUSION: Cuts a sharp 1.5px border outline track */
+    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly along the 1.5px outer rim path */
     -webkit-mask: 
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
@@ -134,22 +113,22 @@ hr {
     opacity: 1;
 }
 
-/* THE FALLBACK OUTLINE: Clean subtle base border line when your cursor is away */
+/* THE FALLBACK OUTLINE: Base grey line outline when cursor is away */
 .gemini-perfect-button::after {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.5px solid #2c2c2e; /* Slate gray base frame ring */
+    border: 1.5px solid #2c2c2e; 
     border-radius: 100px;
     z-index: 0;
     transition: opacity 0.2s ease;
 }
 
 .gemini-perfect-button:hover::after {
-    opacity: 0; /* Hides the idle border style while tracking is active */
+    opacity: 0; 
 }
 
-/* THE INNER TEXT PANEL: Clean crisp typography content housing */
+/* THE INNER TEXT PANEL: Clean crisp white typography content housing */
 .btn-text {
     display: block;
     position: relative;
