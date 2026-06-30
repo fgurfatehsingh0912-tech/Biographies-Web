@@ -47,8 +47,11 @@ function displayBios() {
                             <p class="card-text">${escapeHtml(person.bio)}</p>
                         </div>
                         <form action="${escapeHtml(person.link)}" class="mt-3">
-                            <button type="submit" class="gemini-perfect-button">
-                                <span class="btn-text">Read Biography</span>
+                            <button class="gemini-perfect-button">
+    <div class="btn-glow-container"></div>
+    <span class="btn-text">Read Biography</span>
+</button>
+
                             </button>
                         </form>
                     </div>
