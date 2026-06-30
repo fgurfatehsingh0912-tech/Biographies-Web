@@ -68,7 +68,7 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. TRIGONOMETRIC FLUID ORBIT ENGINE (LERP + WAVE DEFORMATION)
+// 3. INERTIA LAG PHYSICS ENGINE (LERP + BORDER LOCK)
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
@@ -79,9 +79,7 @@ function addTrackingToButtons() {
 
         let state = {
             targetX: 0, targetY: 0,
-            currentX: 0, currentY: 0,
-            maskX: 0, maskY: 0,
-            time: Math.random() * 100 // Adds a unique layout clock index per button card
+            currentX: 0, currentY: 0
         };
 
         const initialRect = button.getBoundingClientRect();
@@ -89,8 +87,6 @@ function addTrackingToButtons() {
         state.targetY = initialRect.height / 2;
         state.currentX = state.targetX;
         state.currentY = state.targetY;
-        state.maskX = state.targetX + 35;
-        state.maskY = state.targetY;
 
         button.addEventListener('mousemove', (e) => {
             const currentRect = button.getBoundingClientRect();
@@ -99,7 +95,7 @@ function addTrackingToButtons() {
 
             state.targetX = mouseX;
 
-            // EDGE-LOCKING: Forces the vertical trajectory axis directly onto target lines
+            // EDGE-LOCKING: Safely maps the Y position variables straight to target edges
             if (mouseY < currentRect.height / 2) {
                 state.targetY = 0; 
             } else {
@@ -107,43 +103,14 @@ function addTrackingToButtons() {
             }
         });
 
-        // HIGH-FREQUENCY CALCULATIONS RENDER CLOCK TICK
+        // SMOOTH ANIMATION CLOCK TICK LOOP
         function updateCoordinatesLoop() {
-            state.time += 0.03; // Controls velocity wave ripple speeds inside the halo loop
+            // Glides coordinates with a slow, smooth inertia lag (0.07 fraction)
+            state.currentX += (state.targetX - state.currentX) * 0.07;
+            state.currentY += (state.targetY - state.currentY) * 0.07;
 
-            // Linear Interpolation curves glide positions smoothly
-            state.currentX += (state.targetX - state.currentX) * 0.08;
-            state.currentY += (state.targetY - state.currentY) * 0.08;
-
-            // The protective dark mask lags slightly with a fixed horizontal gap rightward
-            const targetMaskX = state.targetX + 35;
-            state.maskX += (targetMaskX - state.maskX) * 0.05;
-            state.maskY += (state.targetY - state.maskY) * 0.08;
-
-            // THE GRAPHIC FLUID FIX: Calculate separate trigonometric waves for all 4 Google spot vectors
-            // This lets them curve, rotate, and snake around corners naturally instead of tracking flat lines
-            const waveIntensity = 12; // Radius width of the fluid loop halo cloud cluster
-            
-            const rX = state.currentX + Math.cos(state.time) * waveIntensity - 16;
-            const rY = state.currentY + Math.sin(state.time) * waveIntensity;
-
-            const bX = state.currentX + Math.cos(state.time + 1.5) * waveIntensity - 4;
-            const bY = state.currentY + Math.sin(state.time + 1.5) * waveIntensity;
-
-            const gX = state.currentX + Math.cos(state.time + 3.0) * waveIntensity + 6;
-            const gY = state.currentY + Math.sin(state.time + 3.0) * waveIntensity;
-
-            const yX = state.currentX + Math.cos(state.time + 4.5) * waveIntensity + 18;
-            const yY = state.currentY + Math.sin(state.time + 4.5) * waveIntensity;
-
-            // Pipe coordinate indices natively to the CSS custom matrix rules
-            button.style.setProperty('--mask-x', `${state.maskX}px`);
-            button.style.setProperty('--mask-y', `${state.maskY}px`);
-            
-            button.style.setProperty('--rx', `${rX}px`); button.style.setProperty('--ry', `${rY}px`);
-            button.style.setProperty('--bx', `${bX}px`); button.style.setProperty('--by', `${bY}px`);
-            button.style.setProperty('--gx', `${gX}px`); button.style.setProperty('--gy', `${gY}px`);
-            button.style.setProperty('--yx', `${yX}px`); button.style.setProperty('--yy', `${yY}px`);
+            button.style.setProperty('--x', `${state.currentX}px`);
+            button.style.setProperty('--y', `${state.currentY}px`);
 
             requestAnimationFrame(updateCoordinatesLoop);
         }
@@ -153,7 +120,7 @@ function addTrackingToButtons() {
 }
 
 // ============================================================================
-// 4. LIFE-CYCLE INITIALIZATION SYSTEM
+// 4. MAIN WINDOW SYSTEM INITIALIZATION
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
