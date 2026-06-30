@@ -42,13 +42,13 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (ASYMMETRIC MASK SHIELD)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (ISOLATED LAYER ARCHITECTURE)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Capsule pill layout shape shape */
+    border-radius: 100px; /* Capsule pill shape layout */
     background: #000000;  /* Solid pitch black button base plate */
     width: 100%; 
     outline: none !important;
@@ -60,8 +60,7 @@ hr {
     transform: scale(1.01);
 }
 
-/* THE WORKING GRADIENT LAYER ENGINE:
-   Preserves absolute border path alignment across all web rendering engines */
+/* LAYER 1 (THE COLOR FIELD): Displays the rich, unflattened Google gradient wheel */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -72,67 +71,71 @@ hr {
     pointer-events: none;
     border-radius: 100px;
 
-    /* THE REAL GOOGLE ASYMMETRIC ENGINE:
-       - Layer A: A solid black linear shield block. It starts right at your cursor position 
-         plus a small 10px buffer, completely wiping out any color trailing to the right side.
-       - Layer B: A pure continuous conic gradient wheel tracking your mouse coordinates smoothly,
-         allowing the full colorful spectrum loop to wrap around curves nicely on the left. */
-    background: 
-      linear-gradient(
-          90deg,
-          transparent calc(var(--x, 50%) + 10px),
-          #000000 calc(var(--x, 50%) + 20px)   /* THE GAP SHIELD: Keeps the trailing right side empty and black */
-      ),
-      conic-gradient(
-          from 180deg at var(--x, 50%) var(--y, 50%),
-          #ea4335, /* Google Red */
-          #4285f4, /* Google Blue */
-          #34a853, /* Google Green */
-          #fbbc05, /* Google Yellow */
-          #ea4335  /* Seamless loop closure back to Red */
-      );
-      
-    background-blend-mode: normal;
+    /* PURE GOOGLE AI SPECTRUM: Centered precisely on your smooth cursor coordinates */
+    background: conic-gradient(
+        from 180deg at var(--x, 50%) var(--y, 50%),
+        #ea4335, /* Google Red */
+        #4285f4, /* Google Blue */
+        #34a853, /* Google Green */
+        #fbbc05, /* Google Yellow */
+        #ea4335  /* Seamless loop closure back to Red */
+    );
 
-    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly along the 1.5px outer rim path */
+    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly into a 1.5px border track */
     -webkit-mask: 
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
     mask: 
         linear-gradient(#fff, #fff) padding-box, 
         linear-gradient(#fff, #fff) border-box;
-        
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     
     border: 1.5px solid transparent;
 }
 
-/* Reveals the fully rounded gradient tracking field instantly on hover */
-.gemini-perfect-button:hover::before {
-    opacity: 1;
-}
-
-/* THE FALLBACK OUTLINE: Base grey line outline when cursor is away */
+/* LAYER 2 (THE TRAILING GAP SHIELD): Wipes out all colors on the right side of the cursor */
 .gemini-perfect-button::after {
     content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.5px solid #2c2c2e; 
+    top: 0; left: 0; right: 0; bottom: 0; 
+    z-index: 2; /* Layered directly *above* the color field to block it out */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
     border-radius: 100px;
-    z-index: 0;
-    transition: opacity 0.2s ease;
+
+    /* ASYMMETRIC MASK BLOCK: Blocks out color starting 15px to the right of your cursor position */
+    background: linear-gradient(
+        90deg,
+        transparent calc(var(--x, 50%) + 15px),
+        #000000 calc(var(--x, 50%) + 25px)
+    );
+
+    /* Clips the black shield block to use the exact same 1.5px border outline track */
+    -webkit-mask: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
+    mask: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    
+    border: 1.5px solid transparent;
 }
 
+/* Instantly activate both your tracking color fields and shadow masks upon cursor entry */
+.gemini-perfect-button:hover::before,
 .gemini-perfect-button:hover::after {
-    opacity: 0; 
+    opacity: 1;
 }
 
 /* THE INNER TEXT PANEL: Clean crisp white typography content housing */
 .btn-text {
     display: block;
     position: relative;
-    z-index: 3; 
+    z-index: 3; /* Lift text container completely above the shadow dimming element layers */
     color: #ffffff; 
     padding: 11px 24px;
     font-size: 14px;
@@ -140,6 +143,21 @@ hr {
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0.2px;
+}
+
+/* FALLBACK OUTLINE TILE: Draws a clean, subtle gray rim outline when cursor is away */
+.btn-text::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1.5px solid #2c2c2e;
+    border-radius: 100px;
+    z-index: -1;
+    transition: opacity 0.2s ease;
+}
+
+.gemini-perfect-button:hover .btn-text::before {
+    opacity: 0; /* Clear out default outline frame during active cursor hover actions */
 }
 
 /* ==========================================
