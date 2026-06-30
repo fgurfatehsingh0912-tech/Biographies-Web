@@ -69,7 +69,7 @@ function escapeHtml(text) {
 }
 
 // ============================================================================
-// 3. INERTIA LAG PHYSICS ENGINE (LERP + EDGE-LOCKING)
+// 3. INERTIA LAG PHYSICS ENGINE (LERP + EDGE-LOCKING) WITH AXIS DIRECTION FIX
 // ============================================================================
 function addTrackingToButtons() {
     const buttons = document.querySelectorAll('.gemini-perfect-button');
@@ -78,7 +78,6 @@ function addTrackingToButtons() {
         if (button.dataset.trackingInitialized === "true") return;
         button.dataset.trackingInitialized = "true";
 
-        // Find our isolated color container layout box node
         const glowContainer = button.querySelector('.btn-glow-container');
         if (!glowContainer) return;
 
@@ -98,9 +97,11 @@ function addTrackingToButtons() {
             const mouseX = e.clientX - currentRect.left;
             const mouseY = e.clientY - currentRect.top;
 
-            state.targetX = mouseX;
+            // THE DIRECTION FIX: Multiplies coordinates to invert the reversed tracking direction.
+            // This forces the colors to travel right when your mouse moves right!
+            state.targetX = currentRect.width - mouseX;
 
-            // EDGE-LOCKING: Locks the vertical track center directly onto the border bounds
+            // EDGE-LOCKING: Keeps tracking locked strictly on the upper or lower rim line profile
             if (mouseY < currentRect.height / 2) {
                 state.targetY = 0; 
             } else {
@@ -108,13 +109,12 @@ function addTrackingToButtons() {
             }
         });
 
-        // HIGH FREQUENCY PHYSICS ENGINE ANIMATION LOOP
+        // HIGH FREQUENCY ANIMATION FRAME LOOP TOCK
         function updateCoordinatesLoop() {
-            // Eases position values frame-by-frame to generate that smooth fluid lag (0.07 fraction)
             state.currentX += (state.targetX - state.currentX) * 0.07;
             state.currentY += (state.targetY - state.currentY) * 0.07;
 
-            // IMPORTANT: Inject variables into the isolated container element instead of the main button wrapper
+            // Send calculations directly into our isolated background graphics panel container box
             glowContainer.style.setProperty('--x', `${state.currentX}px`);
             glowContainer.style.setProperty('--y', `${state.currentY}px`);
 
@@ -126,7 +126,7 @@ function addTrackingToButtons() {
 }
 
 // ============================================================================
-// 4. WINDOW DATA INITIALIZATION SYSTEM
+// 4. MAIN WINDOW INITIALIZATION RUNTIME
 // ============================================================================
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('searchInput');
