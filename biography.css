@@ -47,27 +47,28 @@ hr {
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FLAWLESS DIRECTIONAL TRACK)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (FLAWLESS REVEAL)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Perfect rounded pill shape capsule outline */
-    background: #000000;  /* Solid pitch black button base plate */
+    border-radius: 100px; /* Perfect rounded pill shape layout capsule */
+    background: #2c2c2e;  /* Dark slate-gray frame line when idle */
     width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
-    padding: 0;
-    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 1.2px; /* Set the exact thickness of your ultra-thin border line */
+    overflow: hidden; /* Keeps the internal color spotlights bounded inside the rim shape */
+    transition: background-color 0.3s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Subtle physical hover pop feedback on cursor entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
+    background-color: transparent; /* Allows tracking colors to step in cleanly */
 }
 
 /* THE WORKING GRADIENT LAYER ENGINE:
-   Uses a stacked radial array to force 100% accurate directional movement */
+   Isolates lights into independent rounded circles that follow your mouse direction */
 .gemini-perfect-button::before {
     content: "";
     position: absolute;
@@ -76,13 +77,11 @@ hr {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    border-radius: 100px;
+    border-radius: inherit;
 
-    /* THE DIRECTIONAL FIXED MATRIX:
-       - Layer A: The Hollow Mask. Sweeps an empty black gap exactly 24px to the right of your cursor.
-       - Layer B-E: 4 pure color spotlights clustered closely on the LEFT side of your pointer coordinates.
-         Because they are anchored directly to the mouse positions with a proportional offset loop,
-         they travel forward WITH your cursor direction in real-time! */
+    /* THE TRUE MOVEMENT ENGINE:
+       - Sub-Layer A: The Hollow Mask. Sweeps a solid dark gap exactly 24px to the right of your cursor variables.
+       - Sub-Layer B-E: 4 pure color spots clustered on the left of your cursor coords, forcing them to flow with your hand direction. */
     background: 
       radial-gradient(
           ellipse 65px 24px at calc(var(--x, 50%) + 24px) var(--y, 50%),
@@ -112,51 +111,25 @@ hr {
       );
       
     background-blend-mode: normal;
-
-    /* NATIVE CSS MASK EXCLUSION: Clips graphics smoothly along the 1.5px outer rim path */
-    -webkit-mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
-    mask: 
-        linear-gradient(#fff, #fff) padding-box, 
-        linear-gradient(#fff, #fff) border-box;
-        
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    
-    border: 1.5px solid transparent;
 }
 
-/* Reveals the fully rounded gradient tracking field instantly on hover */
+/* Activates the tracking color spectrum instantly on mouse hover */
 .gemini-perfect-button:hover::before {
     opacity: 1;
 }
 
-/* THE FALLBACK OUTLINE: Clean subtle base border line when your cursor is away */
-.gemini-perfect-button::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.5px solid #2c2c2e; /* Slate gray base frame ring */
-    border-radius: 100px;
-    z-index: 0;
-    transition: opacity 0.2s ease;
-}
-
-.gemini-perfect-button:hover::after {
-    opacity: 0; /* Hides the idle border style while tracking is active */
-}
-
-/* THE INNER TEXT PANEL: Clean crisp white typography content housing */
+/* THE INNER SHIELD PANEL: Solid pitch black tile masks the button's center, leaving colors visible ONLY on the border */
 .btn-text {
     display: block;
     position: relative;
     z-index: 3; 
-    color: #ffffff; 
+    background: #000000; /* Solid black blocks the middle part of the light blobs */
+    color: #ffffff; /* Clean white typography text matching Google update style */
     padding: 11px 24px;
     font-size: 14px;
     font-weight: 500;
     text-align: center;
+    border-radius: 100px; /* Aligns curve shapes perfectly with container frame */
     white-space: nowrap;
     letter-spacing: 0.2px;
 }
