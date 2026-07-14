@@ -98,6 +98,24 @@
         <script>
           document.getElementById("year").textContent = new Date().getFullYear();
         </script>
+        <!-- Put this right before the </body> tag -->
+<script>
+  const searchInput = document.getElementById('searchInput');
+  const googleColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; // Blue, Red, Yellow, Green
+  let colorIndex = 0;
+
+  searchInput.addEventListener('click', () => {
+    // 1. Get the next color in the list
+    const nextColor = googleColors[colorIndex];
+    
+    // 2. Apply it to the input field using a CSS variable
+    searchInput.style.setProperty('--current-caret-color', nextColor);
+    
+    // 3. Move index forward, looping back to 0 after green
+    colorIndex = (colorIndex + 1) % googleColors.length;
+  });
+</script>
+
         <div class="footer-links">
             <a href="privacy.html">Privacy Policy</a>
         </div>
