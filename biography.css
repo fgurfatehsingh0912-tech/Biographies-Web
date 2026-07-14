@@ -48,12 +48,12 @@ hr {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; /* Perfect rounded pill shape */
-    background: #000000;  /* Solid pitch black button base plate */
+    border-radius: 100px; 
+    background: #000000;  
     width: 100%; 
     outline: none !important;
-    padding: 1.5px; /* Set the exact thickness of your ultra-thin border line layout */
-    overflow: hidden; /* Restricts the moving color container cleanly to the border rim path */
+    padding: 1.5px; 
+    overflow: hidden; 
     display: block;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -62,8 +62,6 @@ hr {
     transform: scale(1.01);
 }
 
-/* THE GLOW TRACK CONTAINER: 
-   Holds the independent color pack securely below your text layers */
 .btn-glow-container {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -78,136 +76,102 @@ hr {
     opacity: 1;
 }
 
-/* THE ASYMMETRIC COLOR MATRIX PROPELLER:
-   We bundle the dark trailing gap and the 4 pure color spots together into one layer. */
 .btn-glow-container::before {
     content: "";
     position: absolute;
-    top: -20px; left: -20px; right: -20px; bottom: -20px; /* Bleed space prevents corner slicing */
+    top: -20px; left: -20px; right: -20px; bottom: -20px; 
     
     background: 
-      /* Sub-Layer A: The Hollow Mask. 
-         THE DIRECTIONAL FIX: Using a minus (- 35px) shifts the black lens mask over to the left side 
-         of the cluster. This keeps the right trailing side wide open and empty, forcing the pure 
-         Google colors to follow your cursor directions perfectly in real-time! */
       radial-gradient(
           ellipse 65px 24px at calc(var(--x, 50%) - 35px) var(--y, 50%),
           #000000 0%, 
           #000000 50%,
           transparent 100%
       ),
-      /* Sub-Layer B-E: 4 pure color spotlights clustered closely right under your pointer coordinates. */
       radial-gradient(
           45px circle at calc(var(--x, 50%) - 14px) var(--y, 50%),
-          rgba(234, 67, 53, 1) 0%,    /* Google Red */
+          rgba(234, 67, 53, 1) 0%,    
           transparent 100%
       ),
       radial-gradient(
           45px circle at calc(var(--x, 50%) - 2px) var(--y, 50%),
-          rgba(66, 133, 244, 1) 0%,   /* Google Blue */
+          rgba(66, 133, 244, 1) 0%,   
           transparent 100%
       ),
       radial-gradient(
           45px circle at calc(var(--x, 50%) + 10px) var(--y, 50%),
-          rgba(52, 168, 83, 1) 0%,    /* Google Green */
+          rgba(52, 168, 83, 1) 0%,    
           transparent 100%
       ),
       radial-gradient(
           45px circle at calc(var(--x, 50%) + 22px) var(--y, 50%),
-          rgba(251, 188, 5, 1) 0%,    /* Google Yellow */
+          rgba(251, 188, 5, 1) 0%,    
           transparent 100%
       );
       
     background-blend-mode: normal;
 }
 
-/* THE INNER SHIELD PANEL: Solid pitch black masks the center, forcing colors to look like a thin rim line */
 .btn-text {
     display: block;
     position: relative;
     z-index: 3; 
-    background: #000000; /* Force inner background color to black to block out middle gradient fills */
-    color: #ffffff; /* Clean white typography text matching Google update style */
-    padding: 11px 24px;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
-    border-radius: 100px; /* Must align curve shapes perfectly with container capsule */
-    white-space: nowrap;
-    letter-spacing: 0.2px;
-}
-
-/* THE FALLBACK OUTLINE: Draws a clean, subtle gray rim outline when cursor is away */
-.btn-text::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    border: 1.5px solid #2c2c2e;
-    border-radius: 100px;
-    z-index: -1;
-    transition: opacity 0.2s ease;
-}
-
-.gemini-perfect-button:hover .btn-text::before {
-    opacity: 0;
+    background: #000000; 
+    color: #ffffff;
 }
 
 /* ==========================================
-   4. SITE FOOTER FRAMEWORK
+   4. NEW GOOGLE COMPACT SEARCH INPUT & BUTTON STATES
    ========================================== */
-.site-footer {
-    padding: 20px 0;
-    background-color: #1a1a1a;
-    border-top: 1px solid #2c2c2e;
-    text-align: center;
-    color: #6c757d;
-    font-size: 14px;
-}
-
-.footer-content {
+.google-search-box {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    background-color: #303134; /* Dark structural frame background */
+    border-radius: 24px;
+    border: 1px solid #5f6368;
+    overflow: hidden;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+/* Glow layout change when input field is active */
+.google-search-box:focus-within {
+    background-color: #3c4043;
+    border-color: transparent;
+    box-shadow: 0 1px 6px rgba(32,33,36,0.28), 0 1px 1px rgba(0,0,0,0.24);
+}
+
+.google-search-input {
+    background: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    padding-left: 16px;
+    box-shadow: none !important;
+}
+
+.google-search-input::placeholder {
+    color: #9aa0a6;
+}
+
+/* The interactive color-changing button styles */
+.google-search-btn {
+    background-color: transparent;
+    border: none;
+    color: #9aa0a6; /* Default subtle grey icon */
+    padding: 0 16px;
+    display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
 }
 
-.footer-links a {
-    color: #0d6efd;
-    text-decoration: none;
-    transition: color 0.2s;
+/* 1. HOVER STATE: Button icon lights up blue when cursor rolls over */
+.google-search-btn:hover {
+    background-color: rgba(66, 133, 244, 0.15); /* Light translucent Google blue hint */
+    color: #8ab4f8;                             /* Vivid Google blue icon */
 }
 
-.footer-links a:hover {
-    color: #0a58ca;
-    text-decoration: underline;
-}
-
-/* Base style for the search button */
-.search-btn {
-  background-color: #f8f9fa; /* Light grey default */
-  color: #3c4043;            /* Dark grey text */
-  border: 1px solid #f8f9fa;
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: all 0.2s;      /* Smooth colour change effect */
-}
-
-/* 1. HOVER: Changes colour when the mouse cursor rolls over it */
-.search-btn:hover {
-  background-color: #e8eaed; /* Slightly darker grey */
-  color: #202124;            /* Darker text for contrast */
-  border-color: #dadce0;     /* Subtle border outline */
-}
-
-/* 2. FOCUS: Changes colour when keyboard navigating (Tab key) */
-.search-btn:focus {
-  background-color: #ffffff; 
-  border-color: #1a73e8;     /* Google blue focus border */
-  outline: none;             /* Removes default browser outline */
-}
-
-/* 3. ACTIVE: Changes colour at the exact moment the button is clicked */
-.search-btn:active {
-  background-color: #f1f3f4; /* Subtle flash of colour on click */
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3); /* Small shadow push effect */
+/* 2. ACTIVE STATE: Deepens the background color dynamically during active click down */
+.google-search-btn:active {
+    background-color: rgba(66, 133, 244, 0.3);
 }
