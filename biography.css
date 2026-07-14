@@ -2,15 +2,17 @@
    1. GLOBAL FRAMEWORK & BOOTSTRAP RESETS
    ========================================== */
 body {
-    background-color: #0f0f11;
+    background-color: #0f0f11; /* Pitch dark canvas style */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding-top: 70px;
+    padding-top: 70px; /* Prevents fixed top navbar from overlapping content */
 }
 
+/* Spaces the biography card blocks cleanly down the page grid */
 .bio-card { 
     margin-bottom: 20px; 
 }
 
+/* Ensures layout text descriptions stay readable */
 .card-text {
     font-size: 14px;
     line-height: 1.6;
@@ -25,158 +27,158 @@ body {
     min-width: 200px; 
 }
 
+/* Ensures the Google Material Icon and text align seamlessly inside nav links */
 .nav-link {
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+/* Clean, modern typography sizing for your slide-out menu header */
 .offcanvas-title {
     font-size: 1.25rem;
     font-weight: 600;
     color: #ffffff;
 }
 
+/* Custom separator lines inside the sidebar template menu */
 hr {
     border-color: rgba(255, 255, 255, 0.15);
 }
 
 /* ==========================================
-   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (BULLETPROOF PACK)
+   3. GOOGLE AI INTERACTIVE BUTTON MECHANICS (INVERSE REVEAL)
    ========================================== */
 .gemini-perfect-button {
     position: relative;
     border: none !important;
     cursor: pointer;
-    border-radius: 100px; 
-    background: #000000;  
-    width: 100%; 
+    border-radius: 100px; /* Perfect rounded pill shape capsule outline */
+    background: #000000;  /* Solid pitch black button base plate */
+    width: 100%; /* Spans full width of biography card content area */
     outline: none !important;
-    padding: 1.5px; 
-    overflow: hidden; 
-    display: block;
+    padding: 0;
     transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+/* Subtle physical hover pop feedback on cursor entry bounds */
 .gemini-perfect-button:hover {
     transform: scale(1.01);
 }
 
-.btn-glow-container {
+/* THE WORKING GRADIENT LAYER ENGINE:
+   Uses a directional-corrected mask to ensure colors trail your cursor path natively */
+.gemini-perfect-button::before {
+    content: "";
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0; 
     z-index: 1;
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: 100px;
     pointer-events: none;
+    border-radius: 100px;
+
+    /* THE BACKPLATE WHEEL:
+       FIXED: Set baseline to from -15deg. This shifts the internal gradient rotation path 
+       so the colors push forward into the mask loop following your cursor tracking direction! */
+    background: conic-gradient(
+        from -15deg at var(--x, 50%) var(--y, 50%),
+        #ea4335, /* Google Red */
+        #4285f4, /* Google Blue */
+        #34a853, /* Google Green */
+        #fbbc05, /* Google Yellow */
+        #ea4335  /* Seamless loop closure back to Red */
+    );
+
+    /* THE INVERSE MASK TRACK:
+       FIXED: Changed back to (+ 18px). This re-opens the massive hollow gap layout on the 
+       trailing right-hand side, forcing all the pure gradient colors to wrap around your cursor 
+       and trail behind its left edge seamlessly! */
+    -webkit-mask: 
+        radial-gradient(
+            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
+            rgba(0,0,0,1) 0%, 
+            rgba(0,0,0,1) 35%, 
+            transparent 100%
+        ) intersect,
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
+    mask: 
+        radial-gradient(
+            ellipse 70px 24px at calc(var(--x, 50%) + 18px) var(--y, 50%), 
+            rgba(0,0,0,1) 0%, 
+            rgba(0,0,0,1) 35%, 
+            transparent 100%
+        ) intersect,
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(#fff, #fff) border-box;
+        
+    -webkit-mask-composite: source-in, xor;
+    mask-composite: intersect, exclude;
+    
+    border: 1.5px solid transparent;
 }
 
-.gemini-perfect-button:hover .btn-glow-container {
+/* Reveals the fully rounded gradient tracking field instantly on hover */
+.gemini-perfect-button:hover::before {
     opacity: 1;
 }
 
-.btn-glow-container::before {
+/* THE FALLBACK OUTLINE: Clean subtle base border line when your cursor is away */
+.gemini-perfect-button::after {
     content: "";
     position: absolute;
-    top: -20px; left: -20px; right: -20px; bottom: -20px; 
-    
-    background: 
-      radial-gradient(
-          ellipse 65px 24px at calc(var(--x, 50%) - 35px) var(--y, 50%),
-          #000000 0%, 
-          #000000 50%,
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at calc(var(--x, 50%) - 14px) var(--y, 50%),
-          rgba(234, 67, 53, 1) 0%,    
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at calc(var(--x, 50%) - 2px) var(--y, 50%),
-          rgba(66, 133, 244, 1) 0%,   
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at calc(var(--x, 50%) + 10px) var(--y, 50%),
-          rgba(52, 168, 83, 1) 0%,    
-          transparent 100%
-      ),
-      radial-gradient(
-          45px circle at calc(var(--x, 50%) + 22px) var(--y, 50%),
-          rgba(251, 188, 5, 1) 0%,    
-          transparent 100%
-      );
-      
-    background-blend-mode: normal;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border: 1.5px solid #2c2c2e; /* Slate gray base frame ring */
+    border-radius: 100px;
+    z-index: 0;
+    transition: opacity 0.2s ease;
 }
 
+.gemini-perfect-button:hover::after {
+    opacity: 0; /* Hides the idle border style while tracking is active */
+}
+
+/* THE INNER TEXT PANEL: Clean crisp white typography content housing */
 .btn-text {
     display: block;
     position: relative;
     z-index: 3; 
-    background: #000000; 
-    color: #ffffff;
+    color: #ffffff; 
+    padding: 11px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
 }
 
 /* ==========================================
-   4. NEW GOOGLE COMPACT SEARCH INPUT & BUTTON STATES
+   4. SITE FOOTER FRAMEWORK
    ========================================== */
-.google-search-box {
+.site-footer {
+    padding: 20px 0;
+    background-color: #1a1a1a;
+    border-top: 1px solid #2c2c2e;
+    text-align: center;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.footer-content {
     display: flex;
-    width: 100%;
-    background-color: #303134; /* Dark structural frame background */
-    border-radius: 24px;
-    border: 1px solid #5f6368;
-    overflow: hidden;
-    transition: background-color 0.2s, box-shadow 0.2s;
-}
-
-/* Glow layout change when input field is active */
-.google-search-box:focus-within {
-    background-color: #3c4043;
-    border-color: transparent;
-    box-shadow: 0 1px 6px rgba(32,33,36,0.28), 0 1px 1px rgba(0,0,0,0.24);
-}
-
-.google-search-input {
-    background: transparent !important;
-    border: none !important;
-    color: #ffffff !important;
-    padding-left: 16px;
-    box-shadow: none !important;
-    
-    /* FALLBACK & DYNAMIC COLOR: 
-       Starts as your yellow image cursor, then updates via JavaScript on click */
-    caret-color: var(--current-caret-color, #fbbc05); 
-}
-
-
-.google-search-input::placeholder {
-    color: #9aa0a6;
-}
-
-/* The interactive color-changing button styles */
-.google-search-btn {
-    background-color: transparent;
-    border: none;
-    color: #9aa0a6; /* Default subtle grey icon */
-    padding: 0 16px;
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: color 0.2s, background-color 0.2s;
+    gap: 10px;
 }
 
-/* 1. HOVER STATE: Button icon lights up blue when cursor rolls over */
-.google-search-btn:hover {
-    background-color: rgba(66, 133, 244, 0.15); /* Light translucent Google blue hint */
-    color: #8ab4f8;                             /* Vivid Google blue icon */
+.footer-links a {
+    color: #0d6efd;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
-/* 2. ACTIVE STATE: Deepens the background color dynamically during active click down */
-.google-search-btn:active {
-    background-color: rgba(66, 133, 244, 0.3);
+.footer-links a:hover {
+    color: #0a58ca;
+    text-decoration: underline;
 }
