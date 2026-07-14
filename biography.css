@@ -146,7 +146,12 @@ hr {
     color: #ffffff !important;
     padding-left: 16px;
     box-shadow: none !important;
+    
+    /* FALLBACK & DYNAMIC COLOR: 
+       Starts as your yellow image cursor, then updates via JavaScript on click */
+    caret-color: var(--current-caret-color, #fbbc05); 
 }
+
 
 .google-search-input::placeholder {
     color: #9aa0a6;
