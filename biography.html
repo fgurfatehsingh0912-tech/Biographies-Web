@@ -23,7 +23,7 @@
 
 <nav class="navbar navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a href="index.html"><div class="navbar-brand">Biographies</div><a>
+    <a href="index.html"><div class="navbar-brand">Biographies</div></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,8 +36,12 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         
-        <form class="d-flex mb-3" id="searchForm">
-          <input id="searchInput" class="form-control search-btn" type="search" placeholder="Search names..." aria-label="Search"/>
+        <!-- UPDATED SEARCH BAR STRUCTURE -->
+        <form class="d-flex mb-3 google-search-box" id="searchForm">
+          <input id="searchInput" class="form-control google-search-input" type="search" placeholder="Search names..." aria-label="Search"/>
+          <button type="submit" class="google-search-btn">
+            <span class="material-symbols-outlined">search</span>
+          </button>
         </form>
         <hr class="mt-0 mb-2">
       </div>
