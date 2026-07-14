@@ -181,3 +181,33 @@ hr {
     color: #0a58ca;
     text-decoration: underline;
 }
+
+/* Base style for the search button */
+.search-btn {
+  background-color: #f8f9fa; /* Light grey default */
+  color: #3c4043;            /* Dark grey text */
+  border: 1px solid #f8f9fa;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s;      /* Smooth colour change effect */
+}
+
+/* 1. HOVER: Changes colour when the mouse cursor rolls over it */
+.search-btn:hover {
+  background-color: #e8eaed; /* Slightly darker grey */
+  color: #202124;            /* Darker text for contrast */
+  border-color: #dadce0;     /* Subtle border outline */
+}
+
+/* 2. FOCUS: Changes colour when keyboard navigating (Tab key) */
+.search-btn:focus {
+  background-color: #ffffff; 
+  border-color: #1a73e8;     /* Google blue focus border */
+  outline: none;             /* Removes default browser outline */
+}
+
+/* 3. ACTIVE: Changes colour at the exact moment the button is clicked */
+.search-btn:active {
+  background-color: #f1f3f4; /* Subtle flash of colour on click */
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3); /* Small shadow push effect */
+}
