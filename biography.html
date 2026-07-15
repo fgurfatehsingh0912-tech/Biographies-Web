@@ -24,13 +24,14 @@
         
         <!-- Center: Google Sign-In Container with explicitly guaranteed space -->
         <div class="flex-grow-1 d-flex justify-content-center px-3" style="min-width: 220px; max-width: 400px;">
-            <div id="g_id_onload" 
-                 data-client_id="://googleusercontent.com" 
-                 data-callback="handleCredentialResponse" 
-                 data-ux_mode="redirect" 
-                 data-login_uri="http://localhost:5500/google-login.html" 
-                 data-auto_prompt="false">
-            </div>
+            <!-- UPDATED FOR GITHUB PAGES: Switched ux_mode to popup and stripped data-login_uri -->
+<div id="g_id_onload" 
+     data-client_id="://googleusercontent.com" 
+     data-callback="handleCredentialResponse" 
+     data-ux_mode="popup" 
+     data-auto_prompt="false">
+</div>
+
             <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center;">
                 <div class="g_id_signin" 
                      data-type="standard" 
