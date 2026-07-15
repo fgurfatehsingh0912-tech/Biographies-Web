@@ -17,76 +17,82 @@
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark fixed-top">
-        <div class="container-fluid">
-            <a href="index.html"><div class="navbar-brand">Biographies</div></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div style="padding: 20px; display: flex; justify-content: center;">
-                <div id="g_id_onload" 
-                     data-client_id="268079272303-047maeq2tiguvhfibcqa30b18caulj08.apps.googleusercontent.com" 
-                     data-callback="handleCredentialResponse" 
-                     data-ux_mode="redirect" 
-                     data-login_uri="http://localhost:5500/google-login.html" 
-                     data-auto_prompt="false">
-                </div>
-                <!-- Wrapping Google's element inside a target block so we can morph it into a picture button later -->
-                <div id="buttonContainer">
-                    <!-- FIXED: Swapped "sign_in_with" to the official Google keyword "signin_with" -->
-                    <div class="g_id_signin" 
-                         data-type="standard" 
-                         data-size="large" 
-                         data-theme="filled_black" 
-                         data-text="signin_with" 
-                         data-shape="pill" 
-                         data-logo_alignment="left">
-                    </div>
-                </div>
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        
+        <!-- Left: Brand Logo -->
+        <a href="index.html" class="navbar-brand mb-0">Biographies</a>
+        
+        <!-- Center: Google Sign-In Container with explicitly guaranteed space -->
+        <div class="flex-grow-1 d-flex justify-content-center px-3" style="min-width: 220px; max-width: 400px;">
+            <div id="g_id_onload" 
+                 data-client_id="://googleusercontent.com" 
+                 data-callback="handleCredentialResponse" 
+                 data-ux_mode="redirect" 
+                 data-login_uri="http://localhost:5500/google-login.html" 
+                 data-auto_prompt="false">
             </div>
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
-                <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="offcanvas-title">Menu</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-                    </div>
-                    <!-- FIXED: Removed stray closing </button> tag -->
-                    <form class="d-flex mb-3 google-search-box" id="searchForm">
-                        <input id="searchInput" class="form-control google-search-input" type="search" placeholder="Search names..." aria-label="Search"/>
-                        <span class="material-symbols-outlined">search</span>
-                    </form>
-                    <hr class="mt-0 mb-2">
-                </div>
-                <div class="offcanvas-body pt-1">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                        <li class="nav-item mb-2">
-                            <a class="nav-link active" href="index.html">
-                                <span class="material-symbols-outlined" style="font-size: 24px; font-family: 'Material Symbols Outlined' !important;">home</span>
-                                <span>Home</span>
-                            </a>
-                            <hr class="my-2">
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <span class="material-symbols-outlined" style="font-size: 24px; font-family: 'Material Symbols Outlined' !important;">filter_list</span>
-                                <span>Filters</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-dark mt-2">
-                                <div class="d-grid gap-2">
-                                    <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
-                                    <label class="btn btn-outline-primary" for="all">Show All</label>
-                                    <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
-                                    <label class="btn btn-outline-primary" for="male">(Student) Male</label>
-                                    <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
-                                    <label class="btn btn-outline-primary" for="female">(Student) Female</label>
-                                </div>
-                            </ul>
-                            <hr class="my-2">
-                        </li>
-                    </ul>
+            <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center;">
+                <div class="g_id_signin" 
+                     data-type="standard" 
+                     data-size="large" 
+                     data-theme="filled_black" 
+                     data-text="signin_with" 
+                     data-shape="pill" 
+                     data-logo_alignment="left">
                 </div>
             </div>
         </div>
-    </nav>
+
+        <!-- Right: Mobile Menu Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Sidebar Navigation Drawer Menu -->
+        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+            <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="offcanvas-title">Menu</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <form class="d-flex mb-3 google-search-box" id="searchForm">
+                    <input id="searchInput" class="form-control google-search-input" type="search" placeholder="Search names..." aria-label="Search"/>
+                    <span class="material-symbols-outlined">search</span>
+                </form>
+                <hr class="mt-0 mb-2">
+            </div>
+            <div class="offcanvas-body pt-1">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link active" href="index.html">
+                            <span class="material-symbols-outlined" style="font-size: 24px;">home</span>
+                            <span>Home</span>
+                        </a>
+                        <hr class="my-2">
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                            <span class="material-symbols-outlined" style="font-size: 24px;">filter_list</span>
+                            <span>Filters</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark mt-2">
+                            <div class="d-grid gap-2">
+                                <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
+                                <label class="btn btn-outline-primary" for="all">Show All</label>
+                                <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
+                                <label class="btn btn-outline-primary" for="male">(Student) Male</label>
+                                <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
+                                <label class="btn btn-outline-primary" for="female">(Student) Female</label>
+                            </div>
+                        </ul>
+                        <hr class="my-2">
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
     <main class="container">
         <div id="bioContent" class="row"></div>
     </main>
