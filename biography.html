@@ -126,10 +126,14 @@
         }
         function handleCredentialResponse(response) {
     try {
-        // FIXED: Explicitly target index 1 of the split array string to safely grab the JWT base64 payload 
-        const tokenPayloadString = response.credential.split('.')[1];
-        const base64 = tokenPayloadString.replace(/-/g, '+').replace(/_/g, '/');
+        // FIXED: Targeted index [1] of the array to grab the Base64 JWT string payload
+        const tokenParts = response.credential.split('.');
+        const base64Url = tokenParts[1]; 
         
+        // Sanitize the URL-safe Base64 markers back into standard Base64 characters
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        
+        // SAFELY DECODE PAYLOAD: Convert safely into readable JSON format values
         const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
@@ -137,7 +141,7 @@
         const userData = JSON.parse(jsonPayload);
         
         if (userData && userData.picture) {
-            // Overwrite standard login button with a profile image avatar
+            // Replace the sign-in button container with your secure circular profile image
             document.getElementById("buttonContainer").innerHTML = `
                 <button onclick="clickPictureButton()" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
                     <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
