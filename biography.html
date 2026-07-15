@@ -1,118 +1,109 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="biography.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://googleapis.com" />
     
-    <script src="https://google.com" async defer></script>
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <style>
-        body { padding-top: 70px; }
+        body { padding-top: 85px; }
         .dropdown-menu { padding: 10px; min-width: 200px; }
         .bio-card { margin-bottom: 20px; }
-        /* Ensures the icon and text align seamlessly inside nav links */
         .nav-link { display: flex; align-items: center; gap: 8px; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-        
-        <!-- Left: Brand Logo -->
-        <a href="index.html" class="navbar-brand mb-0">Biographies</a>
-        
-        <!-- Center: Google Sign-In Container with explicitly guaranteed space -->
-        <div class="flex-grow-1 d-flex justify-content-center px-3" style="min-width: 220px; max-width: 400px;">
-            <!-- UPDATED FOR GITHUB PAGES: Switched ux_mode to popup and stripped data-login_uri -->
-<div id="g_id_onload" 
-     data-client_id="268079272303-047maeq2tiguvhfibcqa30b18caulj08.apps.googleusercontent.com" 
-     data-callback="handleCredentialResponse" 
-     data-ux_mode="popup" 
-     data-auto_prompt="false">
-</div>
 
-            <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center;">
-                <div class="g_id_signin" 
-                     data-type="standard" 
-                     data-size="large" 
-                     data-theme="filled_black" 
-                     data-text="signin_with" 
-                     data-shape="pill" 
-                     data-logo_alignment="left">
-                </div>
+    <!-- Main Navigation Bar Setup -->
+    <nav class="navbar navbar-dark bg-dark fixed-top shadow">
+        <div class="container-fluid d-flex align-items-center justify-content-between">
+            
+            <a href="index.html" class="navbar-brand mb-0 fw-bold">Biographies</a>
+            
+            <!-- FIXED NAVBAR PLACEMENT BLOCK: Enforcing structural minimum width for rendering space context -->
+            <div class="flex-grow-1 d-flex justify-content-center px-2" style="min-width: 240px; max-width: 450px;">
+                <!-- JavaScript API target mounting block (Raw HTML attributes stripped out) -->
+                <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center; min-height: 44px;"></div>
             </div>
-        </div>
 
-        <!-- Right: Mobile Menu Toggle Button -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <!-- Sidebar Navigation Drawer Menu -->
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
-            <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="offcanvas-title">Menu</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-                </div>
-                <form class="d-flex mb-3 google-search-box" id="searchForm">
-                    <input id="searchInput" class="form-control google-search-input" type="search" placeholder="Search names..." aria-label="Search"/>
+            <!-- Navigation Drawer Menu Panel Container -->
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+                <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="offcanvas-title">Menu</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                    </div>
                     
-                </form>
-                <hr class="mt-0 mb-2">
-            </div>
-            <div class="offcanvas-body pt-1">
-                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item mb-2">
-                        <a class="nav-link active" href="index.html">
-                            <span class="material-symbols-outlined" style="font-size: 24px;">home</span>
-                            <span>Home</span>
-                        </a>
-                        <hr class="my-2">
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                            <span class="material-symbols-outlined" style="font-size: 24px;">filter_list</span>
-                            <span>Filters</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark mt-2">
-                            <div class="d-grid gap-2">
-                                <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
-                                <label class="btn btn-outline-primary" for="all">Show All</label>
-                                <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
-                                <label class="btn btn-outline-primary" for="male">(Student) Male</label>
-                                <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
-                                <label class="btn btn-outline-primary" for="female">(Student) Female</label>
-                            </div>
-                        </ul>
-                        <hr class="my-2">
-                    </li>
-                </ul>
+                    <form class="d-flex mb-3 google-search-box position-relative align-items-center" id="searchForm">
+                        <input id="searchInput" class="form-control google-search-input pe-5" type="search" placeholder="Search names..." aria-label="Search"/>
+                        <span class="material-symbols-outlined position-absolute end-0 me-3 text-secondary">search</span>
+                    </form>
+                    <hr class="mt-0 mb-2">
+                </div>
+                
+                <div class="offcanvas-body pt-1">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link active" href="index.html">
+                                <span class="material-symbols-outlined" style="font-size: 24px;">home</span>
+                                <span>Home</span>
+                            </a>
+                            <hr class="my-2">
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <span class="material-symbols-outlined" style="font-size: 24px;">filter_list</span>
+                                <span>Filters</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark mt-2">
+                                <div class="d-grid gap-2">
+                                    <input type="radio" class="btn-check filter-opt" name="gender" id="all" value="all" checked>
+                                    <label class="btn btn-outline-primary" for="all">Show All</label>
+                                    <input type="radio" class="btn-check filter-opt" name="gender" id="male" value="male">
+                                    <label class="btn btn-outline-primary" for="male">(Student) Male</label>
+                                    <input type="radio" class="btn-check filter-opt" name="gender" id="female" value="female">
+                                    <label class="btn btn-outline-primary" for="female">(Student) Female</label>
+                                </div>
+                            </ul>
+                            <hr class="my-2">
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <main class="container">
         <div id="bioContent" class="row"></div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="biography.js"></script>
+
     <footer class="site-footer mt-5">
-        <div class="footer-content">
-            <p>&copy; <span id="year"></span> 6D's Biographies. All Rights Reserved.</p>
-            <script>
-                document.getElementById("year").textContent = new Date().getFullYear();
-            </script>
+        <div class="footer-content text-center py-4 border-top border-secondary">
+            <p class="mb-1">&copy; <span id="year"></span> 6D's Biographies. All Rights Reserved.</p>
             <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
+                <a href="privacy.html" class="text-secondary text-decoration-none small">Privacy Policy</a>
             </div>
         </div>
     </footer>
+
+    <script src="https://jsdelivr.net"></script>
+    <script src="biography.js"></script>
+
     <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
         const searchInput = document.getElementById('searchInput');
-        const googleColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; // Blue, Red, Yellow, Green
+        const googleColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; 
         let colorIndex = 0;
         searchInput.addEventListener('click', () => {
             const nextColor = googleColors[colorIndex];
@@ -120,39 +111,64 @@
             colorIndex = (colorIndex + 1) % googleColors.length;
         });
     </script>
+    
+    <!-- SYSTEM LOGIC HANDLERS -->
     <script>
-        function clickPictureButton() {
-            google.accounts.id.prompt();
-        }
-        function handleCredentialResponse(response) {
-    try {
-        // FIXED: Targeted index [1] of the array to grab the Base64 JWT string payload
-        const tokenParts = response.credential.split('.');
-        const base64Url = tokenParts[1]; 
-        
-        // Sanitize the URL-safe Base64 markers back into standard Base64 characters
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        
-        // SAFELY DECODE PAYLOAD: Convert safely into readable JSON format values
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        
-        const userData = JSON.parse(jsonPayload);
-        
-        if (userData && userData.picture) {
-            // Replace the sign-in button container with your secure circular profile image
-            document.getElementById("buttonContainer").innerHTML = `
-                <button onclick="clickPictureButton()" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
-                    <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
-                </button>
-            `;
-        }
-    } catch (error) {
-        console.error("Profile picture decoding failed:", error);
-    }
-}
+        // FIXED PROGRAMMATIC INITIALIZATION: Enforces explicit browser rendering execution
+        window.onload = function () {
+            if (window.google && google.accounts && google.accounts.id) {
+                // Initialize identity module settings directly via Javascript API
+                google.accounts.id.initialize({
+                    client_id: "://googleusercontent.com",
+                    callback: handleCredentialResponse,
+                    ux_mode: "popup" // Clean frontend login window layer structure for GitHub Pages
+                });
 
+                // Force layout generation structure injection with absolute visual size configurations
+                google.accounts.id.renderButton(
+                    document.getElementById("buttonContainer"),
+                    { 
+                        type: "standard",
+                        size: "large",
+                        theme: "filled_black",
+                        text: "signin_with",
+                        shape: "pill",
+                        logo_alignment: "left"
+                    }
+                );
+            } else {
+                // Fallback loop if script async download delay clashes with browser window load state 
+                setTimeout(window.onload, 100);
+            }
+        };
+
+        function clickPictureButton() {
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.prompt();
+            }
+        }
+        
+        function handleCredentialResponse(response) {
+            try {
+                // FIXED PARSING STABILITY: Explicitly isolate the exact token string fragment
+                const base64Url = response.credential.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                const userData = JSON.parse(jsonPayload);
+                
+                if (userData && userData.picture) {
+                    document.getElementById("buttonContainer").innerHTML = `
+                        <button onclick="clickPictureButton()" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
+                            <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
+                        </button>
+                    `;
+                }
+            } catch (error) {
+                console.error("Profile picture decoding failed:", error);
+            }
+        }
     </script>
 </body>
 </html>
