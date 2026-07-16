@@ -143,10 +143,10 @@
         };
 
         function clickPictureButton() {
-            if (window.google && google.accounts && google.accounts.id) {
-                google.accounts.id.prompt();
-            }
-        }
+    // DYNAMIC FIXED: Dynamically returns to the host root context path (Works on both Localhost and GitHub)
+    window.location.origin + window.location.pathname;
+}
+
         
         function handleCredentialResponse(response) {
             try {
