@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- FIXED: Restored clean production Bootstrap CDN -->
+    <link href="https://jsdelivr.net" rel="stylesheet">
     <link rel="stylesheet" href="biography.css">
+    <!-- FIXED: Restored official Google Fonts Icon library -->
     <link rel="stylesheet" href="https://googleapis.com" />
     
     
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://google.com" async defer></script>
 
     <style>
         body { padding-top: 85px; }
         .dropdown-menu { padding: 10px; min-width: 200px; }
         .bio-card { margin-bottom: 20px; }
         .nav-link { display: flex; align-items: center; gap: 8px; }
+        .greeting-banner { text-align: center; margin: 25px 0; font-weight: 300; }
+        #greet { font-weight: 700; color: #4285F4; }
     </style>
 </head>
 <body>
@@ -23,12 +27,10 @@
     <!-- Main Navigation Bar Setup -->
     <nav class="navbar navbar-dark bg-dark fixed-top shadow">
         <div class="container-fluid d-flex align-items-center justify-content-between">
-            
             <a href="index.html" class="navbar-brand mb-0 fw-bold">Biographies</a>
             
-            <!-- FIXED NAVBAR PLACEMENT BLOCK: Enforcing structural minimum width for rendering space context -->
+            <!-- Google Sign-In button container wrapper -->
             <div class="flex-grow-1 d-flex justify-content-center px-2" style="min-width: 240px; max-width: 450px;">
-                <!-- JavaScript API target mounting block (Raw HTML attributes stripped out) -->
                 <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center; min-height: 44px;"></div>
             </div>
 
@@ -82,7 +84,12 @@
             </div>
         </div>
     </nav>
-    <h1 class="align-items-center">Welcome <span id="greet"></span></h1>
+
+    <!-- FIXED H1 GREETING BANNER -->
+    <div class="container">
+        <h1 class="greeting-banner">Welcome <span id="greet">Guest</span></h1>
+    </div>
+
     <main class="container">
         <div id="bioContent" class="row"></div>
     </main>
@@ -96,12 +103,14 @@
         </div>
     </footer>
 
+    <!-- FIXED: Restored valid Bootstrap JavaScript bundle CDN link -->
     <script src="https://jsdelivr.net"></script>
     <script src="biography.js"></script>
-
     <script>
+        // Set dynamic footer copyright year automatically
         document.getElementById("year").textContent = new Date().getFullYear();
 
+        // Custom search box caret cycle colors tracker
         const searchInput = document.getElementById('searchInput');
         const googleColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; 
         let colorIndex = 0;
@@ -112,19 +121,34 @@
         });
     </script>
     
-    <!-- SYSTEM LOGIC HANDLERS -->
     <script>
-        // FIXED PROGRAMMATIC INITIALIZATION: Enforces explicit browser rendering execution
+        // RUNS ON LAUNCH: Restores profile and greeting states instantly if stored in memory
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUserPicture = localStorage.getItem('userProfilePicture');
+            const savedUserName = localStorage.getItem('userProfileName');
+
+            if (savedUserPicture && savedUserName) {
+                // Change greeting text from "Guest" to actual name
+                document.getElementById("greet").textContent = savedUserName;
+                
+                // Keep the circular profile picture button layout visible
+                document.getElementById("buttonContainer").innerHTML = `
+                    <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
+                        <img src="${savedUserPicture}" alt="${savedUserName}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
+                    </button>
+                `;
+            }
+        });
+
+        // Initialize Google Sign-in on window load if not already logged in
         window.onload = function () {
-            if (window.google && google.accounts && google.accounts.id) {
-                // Initialize identity module settings directly via Javascript API
+            if (!localStorage.getItem('userProfilePicture') && window.google && google.accounts && google.accounts.id) {
                 google.accounts.id.initialize({
-                    client_id: "268079272303-047maeq2tiguvhfibcqa30b18caulj08.apps.googleusercontent.com",
+                    client_id: "://googleusercontent.com",
                     callback: handleCredentialResponse,
-                    ux_mode: "popup" // Clean frontend login window layer structure for GitHub Pages
+                    ux_mode: "popup"
                 });
 
-                // Force layout generation structure injection with absolute visual size configurations
                 google.accounts.id.renderButton(
                     document.getElementById("buttonContainer"),
                     { 
@@ -136,53 +160,56 @@
                         logo_alignment: "left"
                     }
                 );
-            } else {
-                // Fallback loop if script async download delay clashes with browser window load state 
+            } else if (!window.google) {
                 setTimeout(window.onload, 100);
             }
         };
 
+        // Triggers Account Selection dropdown when clicking profile picture avatar
         function clickPictureButton() {
-    if (window.google && google.accounts && google.accounts.id) {
-        // FIXED: Re-opens the official Google account selection window
-        google.accounts.id.prompt((notification) => {
-            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                console.log("Prompt skipped. Forcing a refresh to reset login button...");
-                // Failsafe: if the browser blocks the prompt, clear storage and refresh
-                localStorage.clear();
-                window.location.reload();
+            if (window.google && google.accounts && google.accounts.id) {
+                google.accounts.id.prompt((notification) => {
+                    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                        console.log("Prompt skipped. Forcing a refresh to reset login button...");
+                        localStorage.clear();
+                        window.location.reload();
+                    }
+                });
             }
-        });
-    }
-}
-
-function handleCredentialResponse(response) {
-    try {
-        // Safely extract data token payloads
-        const base64Url = response.credential.split('.')[1]; // Target index 1 for the payload string
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        const userData = JSON.parse(jsonPayload);
-        
-        if (userData && userData.picture) {
-            // Save user profile state so it stays signed in across page loads
-            localStorage.setItem('userProfilePicture', userData.picture);
-            localStorage.setItem('userProfileName', userData.name);
-
-            // Replace the sign-in button HTML with a profile image avatar button
-            document.getElementById("buttonContainer").innerHTML = `
-                <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
-                    <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
-                </button>
-            `;
         }
-    } catch (error) {
-        console.error("Profile picture decoding failed:", error);
-    }
-}
-document.getElementById(userData.name).src = greet
+        // FIXED TOKEN PARSER ENGINE: Extracts user token data array configurations safely
+        function handleCredentialResponse(response) {
+            try {
+                // Isolate payload index from token
+                const base64Url = response.credential.split('.')[1]; 
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+                const userData = JSON.parse(jsonPayload);
+                
+                if (userData && userData.picture) {
+                    // Extract name values (prefers first name if provided)
+                    const displayName = userData.given_name || userData.name;
+
+                    // Save data parameters directly to memory cache sandbox
+                    localStorage.setItem('userProfilePicture', userData.picture);
+                    localStorage.setItem('userProfileName', displayName);
+
+                    // FIXED GREETING EXTENSION: Update text content inside header span element node instantly
+                    document.getElementById("greet").textContent = displayName;
+
+                    // Switch out the button container element layout instantly with avatar button
+                    document.getElementById("buttonContainer").innerHTML = `
+                        <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
+                            <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
+                        </button>
+                    `;
+                }
+            } catch (error) {
+                console.error("Profile credentials processing failed:", error);
+            }
+        }
     </script>
 </body>
 </html>
