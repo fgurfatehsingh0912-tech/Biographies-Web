@@ -82,7 +82,7 @@
             </div>
         </div>
     </nav>
-
+    <h1 class="align-items-center">Welcome <span id="greet"></span></h1>
     <main class="container">
         <div id="bioContent" class="row"></div>
     </main>
@@ -182,7 +182,7 @@ function handleCredentialResponse(response) {
         console.error("Profile picture decoding failed:", error);
     }
 }
-
+document.getElementById(userData.name).src = greet
     </script>
 </body>
 </html>
