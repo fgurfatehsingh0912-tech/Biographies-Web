@@ -143,33 +143,46 @@
         };
 
         function clickPictureButton() {
-    // FIXED: Explicitly assigns the location path string to force the browser to navigate
-    window.location.href = window.location.origin + window.location.pathname;
+    if (window.google && google.accounts && google.accounts.id) {
+        // FIXED: Re-opens the official Google account selection window
+        google.accounts.id.prompt((notification) => {
+            if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                console.log("Prompt skipped. Forcing a refresh to reset login button...");
+                // Failsafe: if the browser blocks the prompt, clear storage and refresh
+                localStorage.clear();
+                window.location.reload();
+            }
+        });
+    }
 }
 
-
+function handleCredentialResponse(response) {
+    try {
+        // Safely extract data token payloads
+        const base64Url = response.credential.split('.')[1]; // Target index 1 for the payload string
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        const userData = JSON.parse(jsonPayload);
         
-        function handleCredentialResponse(response) {
-            try {
-                // FIXED PARSING STABILITY: Explicitly isolate the exact token string fragment
-                const base64Url = response.credential.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                }).join(''));
-                const userData = JSON.parse(jsonPayload);
-                
-                if (userData && userData.picture) {
-                    document.getElementById("buttonContainer").innerHTML = `
-                        <button onclick="clickPictureButton()" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
-                            <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
-                        </button>
-                    `;
-                }
-            } catch (error) {
-                console.error("Profile picture decoding failed:", error);
-            }
+        if (userData && userData.picture) {
+            // Save user profile state so it stays signed in across page loads
+            localStorage.setItem('userProfilePicture', userData.picture);
+            localStorage.setItem('userProfileName', userData.name);
+
+            // Replace the sign-in button HTML with a profile image avatar button
+            document.getElementById("buttonContainer").innerHTML = `
+                <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
+                    <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
+                </button>
+            `;
         }
+    } catch (error) {
+        console.error("Profile picture decoding failed:", error);
+    }
+}
+
     </script>
 </body>
 </html>
