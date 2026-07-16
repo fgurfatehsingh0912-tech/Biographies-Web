@@ -143,9 +143,10 @@
         };
 
         function clickPictureButton() {
-    // DYNAMIC FIXED: Dynamically returns to the host root context path (Works on both Localhost and GitHub)
-    window.location.origin + window.location.pathname;
+    // FIXED: Directly loads your production website landing address when clicked
+    window.location.href = "https://github.io";
 }
+
 
         
         function handleCredentialResponse(response) {
