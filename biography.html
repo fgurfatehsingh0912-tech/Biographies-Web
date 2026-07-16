@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <!-- KEEPING YOUR EXACT WORKING BOOTSTRAP VERSION LINK -->
+    <!-- Keeping your exact Bootstrap version link configurations -->
     <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="biography.css">
     <link rel="stylesheet" href="https://googleapis.com" />
@@ -28,23 +28,25 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <a href="index.html" class="navbar-brand mb-0 fw-bold">Biographies</a>
             
-            <!-- Safe layout space allocated for Google UI Engine injection -->
+            <!-- Google Sign-In wrapper space box context -->
             <div class="flex-grow-1 d-flex justify-content-center px-2" style="min-width: 240px; max-width: 450px;">
                 <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center; min-height: 44px;"></div>
             </div>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar">
+            <!-- Hamburger Button Drawer Menu Trigger -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- Navigation Drawer Menu Panel Container -->
-            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar">
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header d-flex flex-column align-items-stretch pb-0">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="offcanvas-title">Menu</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     
+                    <!-- FIXED SEARCH FORM: Stripped out the broken orphan closing button element layout error -->
                     <form class="d-flex mb-3 google-search-box position-relative align-items-center" id="searchForm">
                         <input id="searchInput" class="form-control google-search-input pe-5" type="search" placeholder="Search names..." aria-label="Search"/>
                         <span class="material-symbols-outlined position-absolute end-0 me-3 text-secondary">search</span>
@@ -84,7 +86,7 @@
         </div>
     </nav>
 
-    <!-- Welcome Greeting Header Content Banner -->
+    <!-- Welcome Greeting Header Banner Content Block -->
     <div class="container">
         <h1 class="greeting-banner">Welcome <span id="greet">Guest</span></h1>
     </div>
@@ -125,10 +127,9 @@
             const savedUserName = localStorage.getItem('userProfileName');
 
             if (savedUserPicture && savedUserName) {
-                // Instantly swap greeting banner text strings using stored state names
                 document.getElementById("greet").textContent = savedUserName;
                 
-                // Render avatar layout elements securely
+                // Keep the circular profile picture button layout visible
                 document.getElementById("buttonContainer").innerHTML = `
                     <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
                         <img src="${savedUserPicture}" alt="${savedUserName}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
@@ -173,11 +174,11 @@
                 });
             }
         }
-        // FIXED DATA EXTRACTOR: Isolates string fragment token configurations safely
         function handleCredentialResponse(response) {
             try {
-                // FIXED: Explicitly targeting index 1 to capture the payload string
-                const base64Url = response.credential.split('.')[1]; 
+                // FIXED split indexing targeted securely
+                const tokenPayloadArray = response.credential.split('.');
+                const base64Url = tokenPayloadArray[1]; 
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
                 
                 const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
@@ -191,7 +192,7 @@
                     localStorage.setItem('userProfilePicture', userData.picture);
                     localStorage.setItem('userProfileName', displayName);
 
-                    // Modify banner display greeting element strings instantly
+                    // Update greeting banner display values instantly
                     document.getElementById("greet").textContent = displayName;
 
                     document.getElementById("buttonContainer").innerHTML = `
