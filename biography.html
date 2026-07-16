@@ -143,8 +143,8 @@
         };
 
         function clickPictureButton() {
-    // FIXED: Directly loads your production website landing address when clicked
-    window.location.href = "https://github.io";
+    // FIXED: Explicitly assigns the location path string to force the browser to navigate
+    window.location.href = window.location.origin + window.location.pathname;
 }
 
 
