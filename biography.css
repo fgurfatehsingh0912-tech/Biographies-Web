@@ -202,6 +202,10 @@ hr {
   /* 4. Animation tags to move the text gradient seamlessly */
   background-size: 200% auto;
   animation: geminiMove 5s linear infinite;
+
+  /* FIX: Forces the gradient to stretch across the whole sentence */
+  display: inline-block;
+  white-space: nowrap;
 }
 
 /* 5. Keyframes tag to shift the background position left and right */
@@ -210,4 +214,3 @@ hr {
   50% { background-position: 100% center; }
   100% { background-position: 0% center; }
 }
-
