@@ -183,3 +183,19 @@ hr {
     text-decoration: underline;
 }
 
+.gradient-text {
+  /* 1. Define your 4 colours moving from right to left */
+  background-image: linear-gradient(to left, #ff007f, #7f00ff, #00bfff, #00ff88);
+  
+  /* 2. Clip the background color strictly to the text */
+  -webkit-background-clip: text;
+  background-clip: text;
+  
+  /* 3. Make the default text color transparent so the gradient shines through */
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  
+  /* Optional: Make the font thick so you can see the colors clearly */
+  font-size: 4rem;
+  font-weight: 900; 
+}
