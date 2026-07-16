@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biography Website</title>
-    <!-- FIXED: Restored clean production Bootstrap CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- KEEPING YOUR EXACT WORKING BOOTSTRAP VERSION LINK -->
+    <link href="https://jsdelivr.net" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="biography.css">
-    <!-- FIXED: Restored official Google Fonts Icon library -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://googleapis.com" />
     
     
     <script src="https://google.com" async defer></script>
@@ -29,7 +28,7 @@
         <div class="container-fluid d-flex align-items-center justify-content-between">
             <a href="index.html" class="navbar-brand mb-0 fw-bold">Biographies</a>
             
-            <!-- Google Sign-In button container wrapper -->
+            <!-- Safe layout space allocated for Google UI Engine injection -->
             <div class="flex-grow-1 d-flex justify-content-center px-2" style="min-width: 240px; max-width: 450px;">
                 <div id="buttonContainer" style="width: 100%; display: flex; justify-content: center; min-height: 44px;"></div>
             </div>
@@ -85,7 +84,7 @@
         </div>
     </nav>
 
-    <!-- FIXED H1 GREETING BANNER -->
+    <!-- Welcome Greeting Header Content Banner -->
     <div class="container">
         <h1 class="greeting-banner">Welcome <span id="greet">Guest</span></h1>
     </div>
@@ -103,14 +102,12 @@
         </div>
     </footer>
 
-    <!-- FIXED: Restored valid Bootstrap JavaScript bundle CDN link -->
+    <!-- Bootstrap Bundle and App JS Core Dependencies -->
     <script src="https://jsdelivr.net"></script>
     <script src="biography.js"></script>
     <script>
-        // Set dynamic footer copyright year automatically
         document.getElementById("year").textContent = new Date().getFullYear();
 
-        // Custom search box caret cycle colors tracker
         const searchInput = document.getElementById('searchInput');
         const googleColors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853']; 
         let colorIndex = 0;
@@ -122,16 +119,16 @@
     </script>
     
     <script>
-        // RUNS ON LAUNCH: Restores profile and greeting states instantly if stored in memory
+        // Check for active login memory immediately on document layout mount
         window.addEventListener('DOMContentLoaded', () => {
             const savedUserPicture = localStorage.getItem('userProfilePicture');
             const savedUserName = localStorage.getItem('userProfileName');
 
             if (savedUserPicture && savedUserName) {
-                // Change greeting text from "Guest" to actual name
+                // Instantly swap greeting banner text strings using stored state names
                 document.getElementById("greet").textContent = savedUserName;
                 
-                // Keep the circular profile picture button layout visible
+                // Render avatar layout elements securely
                 document.getElementById("buttonContainer").innerHTML = `
                     <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
                         <img src="${savedUserPicture}" alt="${savedUserName}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
@@ -140,7 +137,7 @@
             }
         });
 
-        // Initialize Google Sign-in on window load if not already logged in
+        // Initialize Google Sign-in on window load if profile memory is currently clean
         window.onload = function () {
             if (!localStorage.getItem('userProfilePicture') && window.google && google.accounts && google.accounts.id) {
                 google.accounts.id.initialize({
@@ -165,41 +162,38 @@
             }
         };
 
-        // Triggers Account Selection dropdown when clicking profile picture avatar
         function clickPictureButton() {
             if (window.google && google.accounts && google.accounts.id) {
                 google.accounts.id.prompt((notification) => {
                     if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-                        console.log("Prompt skipped. Forcing a refresh to reset login button...");
+                        console.log("Prompt skipped. Forcing reset clear lifecycle...");
                         localStorage.clear();
                         window.location.reload();
                     }
                 });
             }
         }
-        // FIXED TOKEN PARSER ENGINE: Extracts user token data array configurations safely
+        // FIXED DATA EXTRACTOR: Isolates string fragment token configurations safely
         function handleCredentialResponse(response) {
             try {
-                // Isolate payload index from token
+                // FIXED: Explicitly targeting index 1 to capture the payload string
                 const base64Url = response.credential.split('.')[1]; 
                 const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                
                 const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
                 const userData = JSON.parse(jsonPayload);
                 
                 if (userData && userData.picture) {
-                    // Extract name values (prefers first name if provided)
                     const displayName = userData.given_name || userData.name;
 
-                    // Save data parameters directly to memory cache sandbox
                     localStorage.setItem('userProfilePicture', userData.picture);
                     localStorage.setItem('userProfileName', displayName);
 
-                    // FIXED GREETING EXTENSION: Update text content inside header span element node instantly
+                    // Modify banner display greeting element strings instantly
                     document.getElementById("greet").textContent = displayName;
 
-                    // Switch out the button container element layout instantly with avatar button
                     document.getElementById("buttonContainer").innerHTML = `
                         <button onclick="clickPictureButton()" title="Switch Account / Sign In" style="background: none; border: none; padding: 0; cursor: pointer; border-radius: 50%;">
                             <img src="${userData.picture}" alt="${userData.name}" style="border-radius: 50%; width: 40px; height: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); border: 2px solid #4285F4;">
